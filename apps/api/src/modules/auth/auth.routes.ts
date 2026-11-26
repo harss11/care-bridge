@@ -11,6 +11,8 @@ import { requestMeta } from "../../utils/request.js";
 import { parse } from "../../utils/validate.js";
 import {
   changePasswordSchema,
+  emailOtpRequestSchema,
+  emailOtpVerifySchema,
   otpRequestSchema,
   otpVerifySchema,
   patientSignupSchema,
@@ -20,10 +22,14 @@ import {
   changePassword,
   completePatientSignup,
   getCurrentUser,
+  patientLoginMethods,
   refreshSession,
+  requestPatientEmailOtp,
   requestPatientOtp,
   staffLogin,
+  verifyPatientEmailOtp,
   verifyPatientOtp,
+  type OtpVerifyResult,
   type Session,
 } from "./auth.service.js";
 import {
@@ -66,6 +72,30 @@ authRouter.post("/staff/login", loginLimiter, async (req, res) => {
   sendSession(req, res, await staffLogin(body, requestMeta(req)));
 });
 
+/** GET /auth/methods — which patient login methods are switched on (email always; phone only with a real SMS provider) */
+authRouter.get("/methods", (_req, res) => {
+  ok(res, patientLoginMethods());
+});
+
+function sendOtpResult(req: Request, res: Response, result: OtpVerifyResult) {
+  if (result.status === "SIGNUP_REQUIRED") {
+    return ok(res, { status: result.status, signupToken: result.signupToken });
+  }
+  return sendSession(req, res, result.session);
+}
+
+/** POST /auth/email-otp/request — send a login code to a patient's email */
+authRouter.post("/email-otp/request", otpRequestLimiter, async (req, res) => {
+  const body = parse(emailOtpRequestSchema, req.body);
+  ok(res, await requestPatientEmailOtp(body.email, requestMeta(req)));
+});
+
+/** POST /auth/email-otp/verify — log in, or get a sign-up token for a new email */
+authRouter.post("/email-otp/verify", otpVerifyLimiter, async (req, res) => {
+  const body = parse(emailOtpVerifySchema, req.body);
+  sendOtpResult(req, res, await verifyPatientEmailOtp(body, requestMeta(req)));
+});
+
 /** POST /auth/otp/request — send a login code to a patient's phone */
 authRouter.post("/otp/request", otpRequestLimiter, async (req, res) => {
   const body = parse(otpRequestSchema, req.body);
@@ -75,11 +105,7 @@ authRouter.post("/otp/request", otpRequestLimiter, async (req, res) => {
 /** POST /auth/otp/verify — log in, or get a sign-up token for a new number */
 authRouter.post("/otp/verify", otpVerifyLimiter, async (req, res) => {
   const body = parse(otpVerifySchema, req.body);
-  const result = await verifyPatientOtp(body, requestMeta(req));
-  if (result.status === "SIGNUP_REQUIRED") {
-    return ok(res, { status: result.status, signupToken: result.signupToken });
-  }
-  return sendSession(req, res, result.session);
+  sendOtpResult(req, res, await verifyPatientOtp(body, requestMeta(req)));
 });
 
 /** POST /auth/patient/signup — create the patient account after OTP + consent */

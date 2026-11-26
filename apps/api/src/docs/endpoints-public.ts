@@ -1,5 +1,7 @@
 import {
   changePasswordSchema,
+  emailOtpRequestSchema,
+  emailOtpVerifySchema,
   otpRequestSchema,
   otpVerifySchema,
   patientSignupSchema,
@@ -41,6 +43,20 @@ export const PUBLIC_AND_PATIENT_ENDPOINTS: EndpointRegistry = {
     body: staffLoginSchema,
     description:
       "For hospital admins, receptionists, doctors and the platform admin. Locks the account after repeated failures. A temporary password forces a change before anything else works.",
+  }),
+  "GET /auth/methods": d(AUTH, "Patient login methods that are switched on", {
+    description:
+      "{ email: true, phone: boolean }. Phone login is on only when a real SMS provider is configured (or PHONE_LOGIN_ENABLED=true).",
+  }),
+  "POST /auth/email-otp/request": d(AUTH, "Send a login code to a patient's email", {
+    body: emailOtpRequestSchema,
+    description:
+      "Rate limited per IP and per address. Always answers the same way whether or not the address has an account.",
+  }),
+  "POST /auth/email-otp/verify": d(AUTH, "Check the emailed code; sign in or begin signup", {
+    body: emailOtpVerifySchema,
+    description:
+      "Returns a session, or { status: SIGNUP_REQUIRED, signupToken } for a new address.",
   }),
   "POST /auth/otp/request": d(AUTH, "Send a login code to a patient's phone", {
     body: otpRequestSchema,

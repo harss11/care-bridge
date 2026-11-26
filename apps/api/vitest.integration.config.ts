@@ -16,6 +16,7 @@ export default defineConfig({
       OTP_HMAC_SECRET: "test-otp-secret-that-is-at-least-32-characters",
       JOBS_ENABLED: "false",
       PAYMENT_MODE: "mock",
+      PHONE_LOGIN_ENABLED: "true",
       LOG_LEVEL: "fatal",
       // The malformed-input test sends thousands of requests from one address.
       RATE_LIMIT_MULTIPLIER: "1000",

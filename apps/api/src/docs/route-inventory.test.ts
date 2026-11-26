@@ -8,6 +8,9 @@ import { routeInventory, routeKey } from "./route-inventory.js";
 export const PUBLIC_ENDPOINTS = new Set([
   "GET /health",
   "POST /api/v1/auth/staff/login",
+  "GET /api/v1/auth/methods",
+  "POST /api/v1/auth/email-otp/request",
+  "POST /api/v1/auth/email-otp/verify",
   "POST /api/v1/auth/otp/request",
   "POST /api/v1/auth/otp/verify",
   "POST /api/v1/auth/patient/signup",
@@ -62,6 +65,8 @@ describe("route inventory", () => {
     expect(limited("POST /api/v1/auth/staff/login")).toContain("login");
     expect(limited("POST /api/v1/auth/otp/request")).toContain("otpRequest");
     expect(limited("POST /api/v1/auth/otp/verify")).toContain("otpVerify");
+    expect(limited("POST /api/v1/auth/email-otp/request")).toContain("otpRequest");
+    expect(limited("POST /api/v1/auth/email-otp/verify")).toContain("otpVerify");
     expect(limited("POST /api/v1/auth/refresh")).toContain("refresh");
   });
 

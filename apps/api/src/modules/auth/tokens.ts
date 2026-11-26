@@ -70,8 +70,14 @@ export function verifyAccessToken(token: string): AccessTokenPayload {
 
 const SIGNUP_TOKEN_TTL_SECONDS = 15 * 60;
 
-export function signSignupToken(phone: string): string {
-  return jwt.sign({ phone }, env.JWT_ACCESS_SECRET, {
+/** Who a sign-up token was issued to: the phone number or the email address that was verified. */
+export type SignupIdentity =
+  { phone: string; email?: undefined } | { email: string; phone?: undefined };
+
+export function signSignupToken(identity: SignupIdentity): string {
+  const payload =
+    identity.email !== undefined ? { email: identity.email } : { phone: identity.phone };
+  return jwt.sign(payload, env.JWT_ACCESS_SECRET, {
     algorithm: "HS256",
     issuer: ISSUER,
     audience: SIGNUP_AUDIENCE,
@@ -79,20 +85,21 @@ export function signSignupToken(phone: string): string {
   });
 }
 
-export function verifySignupToken(token: string): { phone: string } {
+export function verifySignupToken(token: string): SignupIdentity {
   try {
     const decoded = jwt.verify(token, env.JWT_ACCESS_SECRET, {
       algorithms: ["HS256"],
       issuer: ISSUER,
       audience: SIGNUP_AUDIENCE,
     });
-    if (typeof decoded === "string" || typeof decoded.phone !== "string") {
-      throw new Error("malformed token");
+    if (typeof decoded !== "string") {
+      if (typeof decoded.phone === "string") return { phone: decoded.phone };
+      if (typeof decoded.email === "string") return { email: decoded.email };
     }
-    return { phone: decoded.phone };
+    throw new Error("malformed token");
   } catch {
     throw AppError.badRequest(
-      "Your verification has expired. Please verify your phone again.",
+      "Your verification has expired. Please verify again.",
       "SIGNUP_TOKEN_INVALID",
     );
   }

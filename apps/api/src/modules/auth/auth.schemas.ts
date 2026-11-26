@@ -19,6 +19,18 @@ export const otpVerifySchema = z.object({
     .regex(/^\d{6}$/, "Enter the 6-digit code"),
 });
 
+export const emailOtpRequestSchema = z.object({
+  email: z.string().trim().min(3, "Enter a valid email address").max(254),
+});
+
+export const emailOtpVerifySchema = z.object({
+  email: z.string().trim().min(3).max(254),
+  code: z
+    .string()
+    .trim()
+    .regex(/^\d{6}$/, "Enter the 6-digit code"),
+});
+
 export const patientSignupSchema = z.object({
   signupToken: z.string().min(1),
   name: z.string().trim().min(2, "Enter your full name").max(100),
@@ -33,5 +45,6 @@ export const changePasswordSchema = z.object({
 
 export type StaffLoginInput = z.infer<typeof staffLoginSchema>;
 export type OtpVerifyInput = z.infer<typeof otpVerifySchema>;
+export type EmailOtpVerifyInput = z.infer<typeof emailOtpVerifySchema>;
 export type PatientSignupInput = z.infer<typeof patientSignupSchema>;
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;

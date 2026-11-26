@@ -10,17 +10,30 @@ import { safeNext } from "@/lib/next-path";
 import { homeFor } from "@/lib/roles";
 import type { Session } from "@/lib/types";
 
-type Step = "phone" | "otp" | "signup";
+type Step = "identify" | "otp" | "signup";
+type Method = "email" | "phone";
 
 interface OtpRequestResponse {
-  phone: string;
+  /** Masked destination: phone for SMS codes, email for email codes. */
+  phone?: string;
+  email?: string;
   expiresInSeconds: number;
   resendAfterSeconds: number;
 }
 
+interface LoginMethods {
+  email: boolean;
+  phone: boolean;
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 type OtpVerifyResponse = Session | { status: "SIGNUP_REQUIRED"; signupToken: string };
 
-/** Patient login and sign-up: phone -> OTP -> (new users only) name + consent. */
+/**
+ * Patient login and sign-up: email (or mobile, when SMS is set up) -> OTP -> (new users only)
+ * name + consent.
+ */
 export default function PatientLoginPage() {
   return (
     <Suspense fallback={<FullPageSpinner />}>
@@ -35,9 +48,12 @@ function PatientLogin() {
   const next = safeNext(useSearchParams().get("next"));
   const status = useRedirectIfAuthenticated(next);
 
-  const [step, setStep] = useState<Step>("phone");
+  const [step, setStep] = useState<Step>("identify");
+  const [method, setMethod] = useState<Method>("email");
+  const [methods, setMethods] = useState<LoginMethods>({ email: true, phone: false });
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [maskedPhone, setMaskedPhone] = useState("");
+  const [maskedDestination, setMaskedDestination] = useState("");
   const [code, setCode] = useState("");
   const [signupToken, setSignupToken] = useState("");
   const [name, setName] = useState("");
@@ -46,6 +62,22 @@ function PatientLogin() {
   const [resendIn, setResendIn] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+
+  // Phone login is offered only when the server can actually send SMS.
+  useEffect(() => {
+    let cancelled = false;
+    api
+      .get<LoginMethods>("/auth/methods", { auth: false })
+      .then((m) => {
+        if (!cancelled) setMethods(m);
+      })
+      .catch(() => {
+        // Older API or offline: email only.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Resend countdown.
   useEffect(() => {
@@ -62,7 +94,7 @@ function PatientLogin() {
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Something went wrong. Please try again.");
       if (err instanceof ApiError && err.code === "SIGNUP_TOKEN_INVALID") {
-        setStep("phone");
+        setStep("identify");
         setCode("");
       }
     } finally {
@@ -77,18 +109,21 @@ function PatientLogin() {
 
   const requestOtp = () =>
     run(async () => {
-      const res = await api.post<OtpRequestResponse>(
-        "/auth/otp/request",
-        { phone },
-        { auth: false },
-      );
-      setMaskedPhone(res.phone);
+      const res =
+        method === "email"
+          ? await api.post<OtpRequestResponse>(
+              "/auth/email-otp/request",
+              { email },
+              { auth: false },
+            )
+          : await api.post<OtpRequestResponse>("/auth/otp/request", { phone }, { auth: false });
+      setMaskedDestination(res.email ?? res.phone ?? "");
       setResendIn(res.resendAfterSeconds);
       setCode("");
       setStep("otp");
     });
 
-  const onPhoneSubmit = (e: FormEvent) => {
+  const onIdentifySubmit = (e: FormEvent) => {
     e.preventDefault();
     void requestOtp();
   };
@@ -96,11 +131,14 @@ function PatientLogin() {
   const onOtpSubmit = (e: FormEvent) => {
     e.preventDefault();
     void run(async () => {
-      const res = await api.post<OtpVerifyResponse>(
-        "/auth/otp/verify",
-        { phone, code },
-        { auth: false },
-      );
+      const res =
+        method === "email"
+          ? await api.post<OtpVerifyResponse>(
+              "/auth/email-otp/verify",
+              { email, code },
+              { auth: false },
+            )
+          : await api.post<OtpVerifyResponse>("/auth/otp/verify", { phone, code }, { auth: false });
       if ("signupToken" in res) {
         setSignupToken(res.signupToken);
         setStep("signup");
@@ -133,8 +171,13 @@ function PatientLogin() {
             {step === "signup" ? "Create your account" : "Log in or sign up"}
           </h1>
           <p className="mt-1 text-sm text-slate-600">
-            {step === "phone" && "We'll send a one-time code to your mobile number."}
-            {step === "otp" && `Enter the 6-digit code sent to ${maskedPhone}.`}
+            {step === "identify" &&
+              (method === "email"
+                ? "We'll email you a one-time code."
+                : "We'll send a one-time code to your mobile number.")}
+            {step === "otp" &&
+              `Enter the 6-digit code sent to ${maskedDestination}.` +
+                (method === "email" ? " Check your spam folder if you don't see it." : "")}
             {step === "signup" && "Just one more step to book your first appointment."}
           </p>
         </div>
@@ -146,28 +189,62 @@ function PatientLogin() {
             </div>
           )}
 
-          {step === "phone" && (
-            <form onSubmit={onPhoneSubmit} className="space-y-4" noValidate>
-              <Field
-                label="Mobile number"
-                name="phone"
-                type="tel"
-                inputMode="tel"
-                autoComplete="tel-national"
-                prefix="+91"
-                placeholder="98765 43210"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
+          {step === "identify" && (
+            <form onSubmit={onIdentifySubmit} className="space-y-4" noValidate>
+              {method === "email" ? (
+                <Field
+                  key="email"
+                  label="Email address"
+                  name="email"
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  autoCapitalize="none"
+                  spellCheck={false}
+                  placeholder="you@example.com"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              ) : (
+                <Field
+                  key="phone"
+                  label="Mobile number"
+                  name="phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel-national"
+                  prefix="+91"
+                  placeholder="98765 43210"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              )}
               <Button
                 type="submit"
                 className="w-full"
                 loading={busy}
-                disabled={phone.replace(/\D/g, "").length < 10}
+                disabled={
+                  method === "email"
+                    ? !EMAIL_RE.test(email.trim())
+                    : phone.replace(/\D/g, "").length < 10
+                }
               >
                 Send code
               </Button>
+              {methods.phone && (
+                <button
+                  type="button"
+                  className="w-full text-center text-sm font-medium text-brand-700 hover:underline"
+                  onClick={() => {
+                    setMethod(method === "email" ? "phone" : "email");
+                    setError(null);
+                  }}
+                >
+                  {method === "email" ? "Use mobile number instead" : "Use email instead"}
+                </button>
+              )}
             </form>
           )}
 
@@ -195,11 +272,11 @@ function PatientLogin() {
                   type="button"
                   className="font-medium text-slate-600 hover:text-slate-900"
                   onClick={() => {
-                    setStep("phone");
+                    setStep("identify");
                     setError(null);
                   }}
                 >
-                  Change number
+                  {method === "email" ? "Change email" : "Change number"}
                 </button>
                 <button
                   type="button"

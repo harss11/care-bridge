@@ -56,6 +56,34 @@ const EnvSchema = z
     DOCS_ENABLED: z.stringbool().optional(),
 
     SMS_PROVIDER: z.enum(["mock", "msg91", "twilio"]).default("mock"),
+    /**
+     * Offer "log in with mobile number". Off by default while SMS_PROVIDER=mock (the code would only
+     * reach the server log, never a phone). Set it to true to test phone login locally with the mock.
+     */
+    PHONE_LOGIN_ENABLED: z.stringbool().optional(),
+
+    /**
+     * How patients' email login codes are sent.
+     * mock: printed to the API console (development).
+     * smtp: any SMTP server, e.g. Gmail with an app password (free, about 500 emails a day).
+     * brevo: Brevo HTTP API (free, 300 emails a day). resend: Resend HTTP API (free, 100 a day).
+     */
+    EMAIL_PROVIDER: z.enum(["mock", "smtp", "brevo", "resend"]).default("mock"),
+    /** Sender shown to patients, e.g. "MediQ <yourname@gmail.com>". Must be an address the provider lets you send from. */
+    EMAIL_FROM: z.string().trim().optional(),
+    SMTP_HOST: z.string().trim().default("smtp.gmail.com"),
+    SMTP_PORT: z.coerce.number().int().positive().default(465),
+    /** true for port 465 (TLS from the start), false for 587 (STARTTLS). */
+    SMTP_SECURE: z.stringbool().optional(),
+    SMTP_USER: z.string().trim().optional(),
+    /** For Gmail: a 16-character app password (Google Account > Security > App passwords), not your normal password. */
+    SMTP_PASS: z
+      .string()
+      .optional()
+      .transform((v) => v?.replace(/\s+/g, "") || undefined),
+    BREVO_API_KEY: z.string().trim().optional(),
+    RESEND_API_KEY: z.string().trim().optional(),
+
     BCRYPT_ROUNDS: z.coerce.number().int().min(10).max(15).default(12),
 
     PRIVACY_POLICY_VERSION: z.string().default("2026-10-06"),
@@ -232,6 +260,10 @@ const EnvSchema = z
         "when SMS_PROVIDER=msg91",
       );
     }
+    if (env.EMAIL_PROVIDER !== "mock") need(["EMAIL_FROM"], "when EMAIL_PROVIDER is not mock");
+    if (env.EMAIL_PROVIDER === "smtp") need(["SMTP_USER", "SMTP_PASS"], "when EMAIL_PROVIDER=smtp");
+    if (env.EMAIL_PROVIDER === "brevo") need(["BREVO_API_KEY"], "when EMAIL_PROVIDER=brevo");
+    if (env.EMAIL_PROVIDER === "resend") need(["RESEND_API_KEY"], "when EMAIL_PROVIDER=resend");
     if (env.SMS_PROVIDER === "twilio") {
       need(["TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN", "TWILIO_FROM"], "when SMS_PROVIDER=twilio");
     }
@@ -304,3 +336,5 @@ export const env = parsed.data;
 export const isProduction = env.NODE_ENV === "production";
 /** The API reference is public documentation in development and off in production unless asked for. */
 export const docsEnabled = env.DOCS_ENABLED ?? !isProduction;
+/** Patients may log in with a mobile number only when a code can actually reach a phone. */
+export const phoneLoginEnabled = env.PHONE_LOGIN_ENABLED ?? env.SMS_PROVIDER !== "mock";

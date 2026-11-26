@@ -53,7 +53,7 @@ export async function eraseAccount(userId: string, meta: RequestMeta): Promise<v
 
       const user = await tx.user.findUniqueOrThrow({
         where: { id: userId },
-        select: { phone: true },
+        select: { phone: true, email: true },
       });
       const profiles = await tx.patientProfile.findMany({
         where: { userId },
@@ -62,6 +62,8 @@ export async function eraseAccount(userId: string, meta: RequestMeta): Promise<v
       const profileIds = profiles.map((p) => p.id);
 
       if (user.phone) await tx.otpCode.deleteMany({ where: { phone: user.phone } });
+      // Email login codes are stored under the address.
+      if (user.email) await tx.otpCode.deleteMany({ where: { phone: user.email.toLowerCase() } });
       await tx.refreshToken.deleteMany({ where: { userId } });
       await tx.waitlistEntry.deleteMany({ where: { userId } });
       // A donor profile goes with its alerts and answers; donation records stay with the blood bank,

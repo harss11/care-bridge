@@ -1,4 +1,4 @@
-import { env } from "../../config/env.js";
+import { env, phoneLoginEnabled } from "../../config/env.js";
 import { toLanguage, type Language } from "../../utils/language.js";
 import {
   Prisma,
@@ -11,15 +11,17 @@ import type { AuthContext } from "../../middleware/authenticate.js";
 import { audit, auditSafe } from "../../utils/audit.js";
 import { AppError } from "../../utils/http.js";
 import { burnPasswordCheck, hashPassword, verifyPassword } from "../../utils/password.js";
+import { normalizeEmail } from "../../utils/email.js";
 import { normalizeMobile } from "../../utils/phone.js";
 import type { RequestMeta } from "../../utils/request.js";
 import type {
   ChangePasswordInput,
+  EmailOtpVerifyInput,
   OtpVerifyInput,
   PatientSignupInput,
   StaffLoginInput,
 } from "./auth.schemas.js";
-import { consumeLoginOtp, sendLoginOtp } from "./otp.service.js";
+import { consumeLoginOtp, sendEmailLoginOtp, sendLoginOtp } from "./otp.service.js";
 import {
   issueRefreshToken,
   revokeAllForUser,
@@ -212,8 +214,13 @@ export async function staffLogin(input: StaffLoginInput, meta: RequestMeta): Pro
 }
 
 // ---------------------------------------------------------------------------
-// Patients: phone OTP (sign up and log in are the same flow)
+// Patients: email OTP (the default) or phone OTP. Sign up and log in are the same flow.
 // ---------------------------------------------------------------------------
+
+/** Which ways a patient can log in right now (the login page shows only these). */
+export function patientLoginMethods() {
+  return { email: true, phone: phoneLoginEnabled };
+}
 
 function requirePhone(input: string): string {
   const phone = normalizeMobile(input);
@@ -221,13 +228,49 @@ function requirePhone(input: string): string {
   return phone;
 }
 
+function requireEmail(input: string): string {
+  const address = normalizeEmail(input);
+  if (!address) throw AppError.badRequest("Enter a valid email address", "INVALID_EMAIL");
+  return address;
+}
+
+function assertPhoneLoginEnabled(): void {
+  if (!phoneLoginEnabled) {
+    throw AppError.badRequest(
+      "Login with a mobile number is not available yet. Please use your email address.",
+      "PHONE_LOGIN_DISABLED",
+    );
+  }
+}
+
+/** Email is not unique on users (staff may share one), so a patient is found by email and role. */
+function findPatientByEmail(db: Pick<typeof prisma, "user">, address: string) {
+  return db.user.findFirst({
+    where: { role: "PATIENT", email: { equals: address, mode: "insensitive" } },
+    orderBy: { createdAt: "asc" },
+    select: publicUserSelect,
+  });
+}
+
 export async function requestPatientOtp(phoneInput: string, meta: RequestMeta) {
+  assertPhoneLoginEnabled();
   return sendLoginOtp(requirePhone(phoneInput), meta);
+}
+
+export async function requestPatientEmailOtp(emailInput: string, meta: RequestMeta) {
+  return sendEmailLoginOtp(requireEmail(emailInput), meta);
 }
 
 export type OtpVerifyResult =
   | { status: "AUTHENTICATED"; session: Session }
   | { status: "SIGNUP_REQUIRED"; signupToken: string };
+
+async function signInPatient(user: UserForSession, meta: RequestMeta): Promise<OtpVerifyResult> {
+  if (user.role !== "PATIENT") throw AppError.forbidden();
+  assertCanSignIn(user);
+  await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
+  return { status: "AUTHENTICATED", session: await startSession(user, meta) };
+}
 
 /**
  * Verifies the OTP. Existing patients get a session. New numbers get a
@@ -238,26 +281,43 @@ export async function verifyPatientOtp(
   input: OtpVerifyInput,
   meta: RequestMeta,
 ): Promise<OtpVerifyResult> {
+  assertPhoneLoginEnabled();
   const phone = requirePhone(input.phone);
   await consumeLoginOtp(phone, input.code);
 
   const user = await prisma.user.findUnique({ where: { phone }, select: publicUserSelect });
-  if (!user) return { status: "SIGNUP_REQUIRED", signupToken: signSignupToken(phone) };
+  if (!user) return { status: "SIGNUP_REQUIRED", signupToken: signSignupToken({ phone }) };
+  return signInPatient(user, meta);
+}
 
-  if (user.role !== "PATIENT") throw AppError.forbidden();
-  assertCanSignIn(user);
-  await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
-  return { status: "AUTHENTICATED", session: await startSession(user, meta) };
+/** Same as verifyPatientOtp, for a code sent by email. */
+export async function verifyPatientEmailOtp(
+  input: EmailOtpVerifyInput,
+  meta: RequestMeta,
+): Promise<OtpVerifyResult> {
+  const address = requireEmail(input.email);
+  await consumeLoginOtp(address, input.code);
+
+  const user = await findPatientByEmail(prisma, address);
+  if (!user) return { status: "SIGNUP_REQUIRED", signupToken: signSignupToken({ email: address }) };
+  return signInPatient(user, meta);
 }
 
 export async function completePatientSignup(
   input: PatientSignupInput,
   meta: RequestMeta,
 ): Promise<Session> {
-  const { phone } = verifySignupToken(input.signupToken);
+  const identity = verifySignupToken(input.signupToken);
+  const phone = identity.phone ?? null;
+  const address = identity.email ?? null;
+
+  const findExisting = (db: Pick<typeof prisma, "user">) =>
+    phone
+      ? db.user.findUnique({ where: { phone }, select: publicUserSelect })
+      : findPatientByEmail(db, address!);
 
   // Idempotent: a double-submitted form just logs the user in.
-  const existing = await prisma.user.findUnique({ where: { phone }, select: publicUserSelect });
+  const existing = await findExisting(prisma);
   if (existing) {
     assertCanSignIn(existing);
     return startSession(existing, meta);
@@ -265,11 +325,18 @@ export async function completePatientSignup(
 
   try {
     const user = await prisma.$transaction(async (tx) => {
+      // Email has no unique index, so two sign-ups for one address are serialised here instead.
+      if (address) {
+        await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtext(${`signup:${address}`}))`;
+        const raced = await findExisting(tx);
+        if (raced) return raced;
+      }
       const created = await tx.user.create({
         data: {
           role: "PATIENT",
           name: input.name,
           phone,
+          email: address,
           lastLoginAt: new Date(),
           patientProfiles: { create: { relation: "SELF", fullName: input.name, phone } },
           consents: {
@@ -297,6 +364,7 @@ export async function completePatientSignup(
         entityType: "User",
         entityId: created.id,
         metadata: {
+          method: address ? "email" : "phone",
           privacyPolicyVersion: env.PRIVACY_POLICY_VERSION,
           termsVersion: env.TERMS_VERSION,
         },
@@ -304,10 +372,11 @@ export async function completePatientSignup(
       });
       return created;
     });
+    assertCanSignIn(user);
     return startSession(user, meta);
   } catch (err) {
     // Two sign-ups for the same phone raced; the other one won, so log in.
-    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002" && phone) {
       const user = await prisma.user.findUniqueOrThrow({
         where: { phone },
         select: publicUserSelect,
