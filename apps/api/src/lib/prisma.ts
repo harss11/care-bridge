@@ -47,6 +47,9 @@ function createClient() {
   return new PrismaClient({
     adapter,
     omit: { user: { passwordHash: true } },
+    // The default 2 s wait for a transaction is too short when a serverless database (Neon)
+    // wakes from sleep on the first request after a quiet period.
+    transactionOptions: { maxWait: 15_000, timeout: 20_000 },
     log: env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
   });
 }
