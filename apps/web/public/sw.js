@@ -1,5 +1,5 @@
 /*
- * MediQ service worker (deliberately minimal).
+ * Care Bridge service worker (deliberately minimal).
  * - Precaches only the offline page.
  * - Handles page navigations: network first, offline page as fallback.
  * - Never caches API responses: patient data must not sit in a device cache.

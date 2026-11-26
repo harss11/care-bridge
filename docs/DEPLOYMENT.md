@@ -1,6 +1,6 @@
 # Deployment guide
 
-How to put MediQ on the internet for the pilot: the web app on Vercel, the API on Render, PostgreSQL on Neon.
+How to put Care Bridge on the internet for the pilot: the web app on Vercel, the API on Render, PostgreSQL on Neon.
 Everything here also works on AWS (ECS or Elastic Beanstalk for the API, RDS for the database); only the
 dashboards differ.
 
@@ -161,7 +161,7 @@ photo in the hospital panel.
 
 **Sentry.** Create two projects (Node.js and Browser JavaScript), put each DSN in its service. Prove it: in the
 API's Render shell (in `apps/api`) run
-`node -e "import('@sentry/node').then(s=>{s.init({dsn:process.env.SENTRY_DSN});s.captureMessage('MediQ test');return s.flush(3000)})"`
+`node -e "import('@sentry/node').then(s=>{s.init({dsn:process.env.SENTRY_DSN});s.captureMessage('Care Bridge test');return s.flush(3000)})"`
 and check the message arrives. Create an alert rule that emails the on-call person for each new issue.
 
 **Backups.** Follow `docs/BACKUP-RESTORE.md`, then run the restore drill **before** the first real patient.
@@ -210,7 +210,7 @@ admin's login with its own temporary password, shown once. Approve the hospital 
 
 ## 10. Known caveats for the pilot
 
-- One Neon region and one API instance: an outage of either takes MediQ down. Acceptable for 5 to 10 hospitals;
+- One Neon region and one API instance: an outage of either takes Care Bridge down. Acceptable for 5 to 10 hospitals;
   state it to them.
 - `pg` 8 is pinned (`^8`). Prisma's transaction handling issues concurrent queries on one connection, which
   `pg` 9 will no longer queue. Do not upgrade `pg` until Prisma's adapter supports it.

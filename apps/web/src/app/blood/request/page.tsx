@@ -201,7 +201,7 @@ export default function BloodRequestPage() {
           <Checkbox
             checked={accepted}
             onChange={setAccepted}
-            label="I understand that MediQ only connects people. It does not provide or test blood, and I will not pay anyone for blood through MediQ."
+            label="I understand that Care Bridge only connects people. It does not provide or test blood, and I will not pay anyone for blood through Care Bridge."
           />
         </Card>
 

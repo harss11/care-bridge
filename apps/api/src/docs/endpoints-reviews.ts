@@ -30,12 +30,12 @@ export const REVIEW_ENDPOINTS: EndpointRegistry = {
   }),
   "PATCH /appointments/:id/review": d(PAT, "Change my review", {
     body: reviewSchema,
-    description: "Allowed for a few days after writing it, and not once MediQ has hidden it.",
+    description: "Allowed for a few days after writing it, and not once Care Bridge has hidden it.",
   }),
   "DELETE /appointments/:id/review": d(PAT, "Take my review back"),
 
   "GET /hospital/reviews": d(HOSP, "Reviews of my hospital", { query: hospitalReviewsQuery }),
-  "POST /hospital/reviews/:id/report": d(HOSP, "Ask MediQ to look at a review", {
+  "POST /hospital/reviews/:id/report": d(HOSP, "Ask Care Bridge to look at a review", {
     body: reportReviewSchema,
     description: "A hospital cannot hide or change a review. The platform admin decides.",
   }),

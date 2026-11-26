@@ -33,7 +33,7 @@ export function MoneyBlock({ m, asHospital }: { m: MoneySummary; asHospital?: bo
         <StatCard label="Paid online" value={f(m.onlineGross)} hint="received in this period" />
         <StatCard label="Refunded" value={f(m.onlineRefunded)} hint="online refunds completed" />
         <StatCard
-          label={asHospital ? "MediQ fee" : "MediQ commission"}
+          label={asHospital ? "Care Bridge fee" : "Care Bridge commission"}
           value={f(m.commission)}
           hint="on money kept after refunds"
         />
@@ -76,7 +76,7 @@ export function OutstandingRefunds({
       </ul>
       <p className="mt-1 text-xs">
         {asHospital
-          ? "These are retried automatically. Failed ones need attention: contact MediQ support if they stay for more than a day."
+          ? "These are retried automatically. Failed ones need attention: contact Care Bridge support if they stay for more than a day."
           : "Pending refunds are retried automatically. Failed ones need a look: check the payment gateway and the API log."}
       </p>
     </Card>

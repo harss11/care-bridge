@@ -71,7 +71,7 @@ export interface PublicUser {
   bloodBankId: string | null;
   bloodBank: { id: string; name: string; status: BloodBankStatus } | null;
   mustChangePassword: boolean;
-  /** The language the person chose for MediQ and its messages ("en" or "hi"). */
+  /** The language the person chose for Care Bridge and its messages ("en" or "hi"). */
   language: Language;
 }
 

@@ -1,6 +1,6 @@
 # Backups and restore
 
-Patient records are the one thing MediQ cannot recreate. Two independent layers protect them.
+Patient records are the one thing Care Bridge cannot recreate. Two independent layers protect them.
 
 | Layer                             | What it is                                                                     | Recovers from                                                                                       | Typical loss (RPO)                                                                                            |
 | --------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |

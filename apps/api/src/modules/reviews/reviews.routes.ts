@@ -14,7 +14,7 @@ import {
   reportReview,
 } from "./review.service.js";
 
-/** /hospital/reviews: a hospital sees what patients said about it, and can report one to MediQ. */
+/** /hospital/reviews: a hospital sees what patients said about it, and can report one to Care Bridge. */
 export const hospitalReviewsRouter = Router();
 
 export const hospitalReviewsQuery = paginationQuery.extend({

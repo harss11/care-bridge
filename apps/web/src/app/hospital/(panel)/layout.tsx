@@ -26,8 +26,8 @@ function PendingBanner() {
   if (user?.hospital?.status !== "PENDING_APPROVAL") return null;
   return (
     <Alert tone="info">
-      Your hospital is awaiting approval by MediQ. You can set up departments, doctors and schedules
-      now; patients will see you once you are approved.
+      Your hospital is awaiting approval by Care Bridge. You can set up departments, doctors and
+      schedules now; patients will see you once you are approved.
     </Alert>
   );
 }

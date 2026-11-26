@@ -14,7 +14,7 @@ const ADM = "Platform admin";
 export const SUBSCRIPTION_ENDPOINTS: EndpointRegistry = {
   "GET /hospital/subscription": d(HOSP, "My plan, limits, usage and payments", {
     description:
-      "The plan, its state (TRIALING, ACTIVE, GRACE, EXPIRED, SUSPENDED, CANCELLED), days left, what is used against each limit and the payments MediQ recorded. notice says what to tell the hospital: ending_soon, grace, expired, suspended or cancelled.",
+      "The plan, its state (TRIALING, ACTIVE, GRACE, EXPIRED, SUSPENDED, CANCELLED), days left, what is used against each limit and the payments Care Bridge recorded. notice says what to tell the hospital: ending_soon, grace, expired, suspended or cancelled.",
   }),
 
   "GET /admin/plans": d(ADM, "All plans, with how many hospitals use each"),

@@ -35,7 +35,7 @@ export function receiptNumber(paymentId: string, paidAt: Date): string {
 
 /**
  * Receipt for a patient's own paid appointment. Shows refunds if there were any.
- * Never includes the platform commission (that is between MediQ and the hospital).
+ * Never includes the platform commission (that is between Care Bridge and the hospital).
  */
 export async function generateReceipt(auth: AuthContext, appointmentId: string) {
   const appt = await prisma.appointment.findFirst({
@@ -74,7 +74,7 @@ export async function generateReceipt(auth: AuthContext, appointmentId: string) 
 
   const doc = await PDFDocument.create();
   doc.setTitle(`Receipt ${number}`);
-  doc.setAuthor("MediQ");
+  doc.setAuthor("Care Bridge");
   doc.setCreationDate(new Date());
   // Only embed the Hindi fonts when something on the receipt actually needs them.
   const fonts = await loadFonts(doc, {
@@ -129,7 +129,7 @@ export async function generateReceipt(auth: AuthContext, appointmentId: string) 
     page.drawLine({ start: { x: M, y }, end: { x: right, y }, thickness: 0.7, color: LINE });
 
   // Header
-  text("MediQ", M, 22, { bold: true, color: TEAL });
+  text("Care Bridge", M, 22, { bold: true, color: TEAL });
   text("Payment receipt", right, 14, { bold: true, align: "right" });
   y -= 18;
   text("Doctor appointments", M, 9, { color: GREY });

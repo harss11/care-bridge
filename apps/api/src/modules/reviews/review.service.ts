@@ -102,7 +102,7 @@ export async function updateReview(
   const review = await ownReview(auth, appointmentId);
   if (review.hiddenAt) {
     throw AppError.conflict(
-      "This review was hidden by MediQ and can no longer be changed.",
+      "This review was hidden by Care Bridge and can no longer be changed.",
       "REVIEW_HIDDEN",
     );
   }

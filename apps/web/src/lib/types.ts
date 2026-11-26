@@ -1,4 +1,4 @@
-// Shapes returned by the MediQ API. Keep in sync with apps/api.
+// Shapes returned by the Care Bridge API. Keep in sync with apps/api.
 
 export type Role =
   "ADMIN" | "HOSPITAL_ADMIN" | "RECEPTIONIST" | "DOCTOR" | "PATIENT" | "BLOOD_BANK_STAFF";

@@ -152,7 +152,7 @@ export const PUBLIC_AND_PATIENT_ENDPOINTS: EndpointRegistry = {
   "PATCH /patient/account/language": d(PAT, "Choose my language", {
     body: languageSchema,
     description:
-      "en or hi. Used for the SMS MediQ sends me from now on (booking, reminders, waitlist, blood alerts). Messages already queued keep the language they were queued in.",
+      "en or hi. Used for the SMS Care Bridge sends me from now on (booking, reminders, waitlist, blood alerts). Messages already queued keep the language they were queued in.",
   }),
   "GET /patient/account/export": d(PAT, "Download a copy of my data", {
     description:

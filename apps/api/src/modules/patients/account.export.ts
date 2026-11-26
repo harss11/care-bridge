@@ -8,7 +8,7 @@ export const mine = (userId: string) => ({
   OR: [{ bookedById: userId }, { patientProfile: { userId } }],
 });
 
-/** Everything MediQ holds about this patient, as one document they can keep (right of access). */
+/** Everything Care Bridge holds about this patient, as one document they can keep (right of access). */
 export async function exportAccount(userId: string) {
   const user = await prisma.user.findUniqueOrThrow({
     where: { id: userId },

@@ -41,40 +41,40 @@ export const TEMPLATE_VARIABLES: Record<MessageTemplate, readonly string[]> = {
 
 export const BODIES: Record<MessageTemplate, Record<Language, string>> = {
   booking_confirmed: {
-    en: "MediQ: Booking confirmed. {name} with {doctor} at {hospital} on {date}, {time}. Token {token}. Show your QR code at reception.",
-    hi: "MediQ: बुकिंग पक्की हो गई। {name}, {doctor} के साथ {hospital} में {date}, {time} पर। टोकन {token}। रिसेप्शन पर अपना QR कोड दिखाएँ।",
+    en: "Care Bridge: Booking confirmed. {name} with {doctor} at {hospital} on {date}, {time}. Token {token}. Show your QR code at reception.",
+    hi: "Care Bridge: बुकिंग पक्की हो गई। {name}, {doctor} के साथ {hospital} में {date}, {time} पर। टोकन {token}। रिसेप्शन पर अपना QR कोड दिखाएँ।",
   },
   appointment_reminder: {
-    en: "MediQ reminder: {name}'s appointment with {doctor} at {hospital} is today at {time}. Token {token}.",
-    hi: "MediQ अनुस्मारक: {name} की {doctor} के साथ {hospital} में अपॉइंटमेंट आज {time} पर है। टोकन {token}।",
+    en: "Care Bridge reminder: {name}'s appointment with {doctor} at {hospital} is today at {time}. Token {token}.",
+    hi: "Care Bridge अनुस्मारक: {name} की {doctor} के साथ {hospital} में अपॉइंटमेंट आज {time} पर है। टोकन {token}।",
   },
   appointment_cancelled: {
-    en: "MediQ: Your appointment with {doctor} on {date}, {time} is cancelled. {refund}",
-    hi: "MediQ: {doctor} के साथ {date}, {time} की आपकी अपॉइंटमेंट रद्द हो गई है। {refund}",
+    en: "Care Bridge: Your appointment with {doctor} on {date}, {time} is cancelled. {refund}",
+    hi: "Care Bridge: {doctor} के साथ {date}, {time} की आपकी अपॉइंटमेंट रद्द हो गई है। {refund}",
   },
   appointment_rescheduled: {
-    en: "MediQ: Appointment moved to {date}, {time} with {doctor} at {hospital}. Your new token is {token}.",
-    hi: "MediQ: अपॉइंटमेंट बदलकर {date}, {time} पर {doctor} के साथ {hospital} में कर दी गई है। आपका नया टोकन {token} है।",
+    en: "Care Bridge: Appointment moved to {date}, {time} with {doctor} at {hospital}. Your new token is {token}.",
+    hi: "Care Bridge: अपॉइंटमेंट बदलकर {date}, {time} पर {doctor} के साथ {hospital} में कर दी गई है। आपका नया टोकन {token} है।",
   },
   blood_request_alert: {
-    en: "MediQ URGENT: {units} unit(s) of {group} blood needed at {place}, {city}. If you can donate, open MediQ and tap I can help. MediQ only connects people; the blood bank confirms safety.",
-    hi: "MediQ ज़रूरी: {place}, {city} में {group} रक्त की {units} यूनिट चाहिए। यदि आप रक्तदान कर सकते हैं तो MediQ खोलकर मदद की पेशकश करें। MediQ केवल लोगों को जोड़ता है; सुरक्षा की पुष्टि ब्लड बैंक करता है।",
+    en: "Care Bridge URGENT: {units} unit(s) of {group} blood needed at {place}, {city}. If you can donate, open Care Bridge and tap I can help. Care Bridge only connects people; the blood bank confirms safety.",
+    hi: "Care Bridge ज़रूरी: {place}, {city} में {group} रक्त की {units} यूनिट चाहिए। यदि आप रक्तदान कर सकते हैं तो Care Bridge खोलकर मदद की पेशकश करें। Care Bridge केवल लोगों को जोड़ता है; सुरक्षा की पुष्टि ब्लड बैंक करता है।",
   },
   blood_request_bank_alert: {
-    en: "MediQ: {units} unit(s) of {group} blood are needed at {place}, {city}. Open your MediQ blood bank page to respond.",
-    hi: "MediQ: {place}, {city} में {group} रक्त की {units} यूनिट की ज़रूरत है। जवाब देने के लिए अपना MediQ ब्लड बैंक पेज खोलें।",
+    en: "Care Bridge: {units} unit(s) of {group} blood are needed at {place}, {city}. Open your Care Bridge blood bank page to respond.",
+    hi: "Care Bridge: {place}, {city} में {group} रक्त की {units} यूनिट की ज़रूरत है। जवाब देने के लिए अपना Care Bridge ब्लड बैंक पेज खोलें।",
   },
   blood_request_answered: {
-    en: "MediQ: Someone can help with your {group} blood request. Open your MediQ request page to see who and how to reach them.",
-    hi: "MediQ: आपके {group} रक्त अनुरोध में कोई मदद कर सकता है। कौन है और उनसे कैसे संपर्क करें, यह देखने के लिए MediQ अनुरोध पेज खोलें।",
+    en: "Care Bridge: Someone can help with your {group} blood request. Open your Care Bridge request page to see who and how to reach them.",
+    hi: "Care Bridge: आपके {group} रक्त अनुरोध में कोई मदद कर सकता है। कौन है और उनसे कैसे संपर्क करें, यह देखने के लिए Care Bridge अनुरोध पेज खोलें।",
   },
   donation_recorded: {
-    en: "MediQ: Thank you for donating blood at {bank}. You can donate again from {date}. If this was not you, tell the blood bank.",
-    hi: "MediQ: {bank} में रक्तदान के लिए धन्यवाद। आप {date} से दोबारा रक्तदान कर सकते हैं। यदि यह आप नहीं थे तो ब्लड बैंक को बताएँ।",
+    en: "Care Bridge: Thank you for donating blood at {bank}. You can donate again from {date}. If this was not you, tell the blood bank.",
+    hi: "Care Bridge: {bank} में रक्तदान के लिए धन्यवाद। आप {date} से दोबारा रक्तदान कर सकते हैं। यदि यह आप नहीं थे तो ब्लड बैंक को बताएँ।",
   },
   waitlist_slot_open: {
-    en: "MediQ: A seat has opened with {doctor} at {hospital} on {date} for {name}. Seats go to whoever books first, so open MediQ now.",
-    hi: "MediQ: {hospital} में {doctor} के पास {date} को {name} के लिए एक सीट खाली हुई है। सीट पहले बुक करने वाले को मिलेगी, इसलिए अभी MediQ खोलें।",
+    en: "Care Bridge: A seat has opened with {doctor} at {hospital} on {date} for {name}. Seats go to whoever books first, so open Care Bridge now.",
+    hi: "Care Bridge: {hospital} में {doctor} के पास {date} को {name} के लिए एक सीट खाली हुई है। सीट पहले बुक करने वाले को मिलेगी, इसलिए अभी Care Bridge खोलें।",
   },
 };
 

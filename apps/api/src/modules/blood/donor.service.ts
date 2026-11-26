@@ -27,7 +27,7 @@ export function toDonorDto(p: DonorProfile, now = new Date()) {
     eligible: eligibility.eligible,
     ineligibleReasons: eligibility.reasons,
     nextEligibleAt: eligibility.nextEligibleAt,
-    /** True when MediQ would alert this donor about a request right now. */
+    /** True when Care Bridge would alert this donor about a request right now. */
     canBeAlerted: canBeAlerted(p, now, donorRules),
     alertsConsentAt: p.alertsConsentAt,
   };

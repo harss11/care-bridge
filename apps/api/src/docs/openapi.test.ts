@@ -100,7 +100,7 @@ describe("the reference page", () => {
   it("serves the spec, the page and the UI files from this server only", async () => {
     const json = await fetch(base + "/api/docs/openapi.json");
     expect(json.status).toBe(200);
-    expect(((await json.json()) as { info: { title: string } }).info.title).toBe("MediQ API");
+    expect(((await json.json()) as { info: { title: string } }).info.title).toBe("Care Bridge API");
 
     const page = await fetch(base + "/api/docs/");
     expect(page.status).toBe(200);

@@ -10,9 +10,9 @@ export default function PrivacyPage() {
   return (
     <LegalPage title="Privacy Policy" version={VERSION}>
       <p>
-        MediQ (&quot;we&quot;) helps you book doctor appointments at partner hospitals. This policy
-        explains what personal data we process and why, in line with India&apos;s Digital Personal
-        Data Protection Act, 2023 (DPDP Act).
+        Care Bridge (&quot;we&quot;) helps you book doctor appointments at partner hospitals. This
+        policy explains what personal data we process and why, in line with India&apos;s Digital
+        Personal Data Protection Act, 2023 (DPDP Act).
       </p>
 
       <h2>Data we collect</h2>
@@ -33,8 +33,8 @@ export default function PrivacyPage() {
         <li>
           If you are registered at a hospital desk without an account: the name, age, gender, phone
           number and reason for visit the receptionist enters. The hospital collects these to book
-          your visit and MediQ stores them on the hospital&apos;s behalf. Ask the hospital if you
-          want them corrected or removed.
+          your visit and Care Bridge stores them on the hospital&apos;s behalf. Ask the hospital if
+          you want them corrected or removed.
         </li>
       </ul>
 
@@ -61,8 +61,8 @@ export default function PrivacyPage() {
 
       <h2>Blood donors, blood requests and blood banks</h2>
       <p>
-        MediQ helps people who need blood find donors and blood banks nearby. MediQ only connects
-        people. We do not collect, store, test or sell blood, and we are not a blood bank.
+        Care Bridge helps people who need blood find donors and blood banks nearby. Care Bridge only
+        connects people. We do not collect, store, test or sell blood, and we are not a blood bank.
       </p>
       <ul>
         <li>
@@ -135,7 +135,7 @@ export default function PrivacyPage() {
       <h2>Grievance officer</h2>
       <p>
         For questions, requests or complaints, contact our Grievance Officer at
-        privacy@mediq.example (placeholder). You may also approach the Data Protection Board of
+        privacy@carebridge.example (placeholder). You may also approach the Data Protection Board of
         India.
       </p>
     </LegalPage>

@@ -96,7 +96,7 @@ export const en = {
   "rate.change": "Change",
   "rate.delete": "Delete my review",
   "rate.written": "Written {date}",
-  "rate.hidden": "MediQ has hidden this review because it did not follow our review rules.",
+  "rate.hidden": "Care Bridge has hidden this review because it did not follow our review rules.",
   "rate.needStars": "Choose 1 to 5 stars.",
   "rate.confirmTitle": "Delete your review?",
   "rate.confirmText":
@@ -163,7 +163,7 @@ export const en = {
   "waitlist.joinTitle": "Join the waitlist",
   "waitlist.who": "Who is waiting for a seat?",
   "waitlist.joinNote":
-    "You will get an SMS when a seat opens. Seats are not held: whoever books first gets it, so open MediQ as soon as you get the message. You pay only when you book.",
+    "You will get an SMS when a seat opens. Seats are not held: whoever books first gets it, so open Care Bridge as soon as you get the message. You pay only when you book.",
   "waitlist.join": "Join waitlist",
   "waitlist.pickTime": "Pick a time",
   "waitlist.myWaitlist": "My waitlist",

@@ -1,6 +1,6 @@
       <h2>Blood donors, blood requests and blood banks</h2>
       <p>
-        MediQ helps people who need blood find donors and blood banks nearby. MediQ only connects people. We do not
+        Care Bridge helps people who need blood find donors and blood banks nearby. Care Bridge only connects people. We do not
         collect, store, test or sell blood, and we are not a blood bank.
       </p>
       <ul>

@@ -26,7 +26,7 @@ export const createRequestSchema = z
     radiusKm: z.number().int().min(5).max(50).default(25),
     /** Shown to donors: keep it short and free of medical detail. */
     note: nullableText(200),
-    /** The requester confirms they understand what MediQ does and does not do. */
+    /** The requester confirms they understand what Care Bridge does and does not do. */
     acceptDisclaimer: z.literal(true, "Please confirm you understand how this works"),
   })
   .refine(bothOrNeither, BOTH_COORDS);

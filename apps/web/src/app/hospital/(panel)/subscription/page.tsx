@@ -13,7 +13,7 @@ import { Alert, Card, LoadingBlock, PageHeader } from "@/components/ui";
 import type { SubscriptionView } from "@/lib/types";
 import { useApi } from "@/lib/use-api";
 
-/** The hospital's plan, what it includes, how much is used, and the payments MediQ recorded. */
+/** The hospital's plan, what it includes, how much is used, and the payments Care Bridge recorded. */
 export default function HospitalSubscriptionPage() {
   const { data, error } = useApi<SubscriptionView>("/hospital/subscription");
   if (error) return <Alert>{error}</Alert>;
@@ -24,14 +24,14 @@ export default function HospitalSubscriptionPage() {
     <>
       <PageHeader
         title="Your plan"
-        subtitle="Payments are arranged with MediQ directly. To change your plan, contact MediQ."
+        subtitle="Payments are arranged with Care Bridge directly. To change your plan, contact Care Bridge."
       />
       {notice && <Alert tone={notice.tone}>{notice.text}</Alert>}
 
       {!data.plan ? (
         <Card className="p-4">
           <p className="text-slate-700">
-            Your hospital has no plan limits. Everything in MediQ is available to you.
+            Your hospital has no plan limits. Everything in Care Bridge is available to you.
           </p>
         </Card>
       ) : (

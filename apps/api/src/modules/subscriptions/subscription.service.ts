@@ -140,7 +140,7 @@ export async function hospitalUsage(db: DbClient, hospitalId: string, now: Date 
 
 function limitError(what: string, limit: number, planName: string) {
   return AppError.conflict(
-    `The ${planName} plan allows ${limit} ${what}. Ask MediQ to move your hospital to a bigger plan.`,
+    `The ${planName} plan allows ${limit} ${what}. Ask Care Bridge to move your hospital to a bigger plan.`,
     "PLAN_LIMIT",
   );
 }
@@ -172,7 +172,7 @@ export async function assertFeature(
   const access = await hospitalAccess(db, hospitalId);
   if (!access.features[feature]) {
     throw AppError.forbidden(
-      `This is not part of the ${access.plan!.name} plan. Ask MediQ to move your hospital to a bigger plan.`,
+      `This is not part of the ${access.plan!.name} plan. Ask Care Bridge to move your hospital to a bigger plan.`,
       "PLAN_FEATURE",
     );
   }

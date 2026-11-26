@@ -13,7 +13,7 @@ export interface MoneySummary {
   /** Online refunds completed in the period. */
   onlineRefunded: number;
   onlineNet: number;
-  /** MediQ's commission on the online money that was kept (reduced by refunds). */
+  /** Care Bridge's commission on the online money that was kept (reduced by refunds). */
   commission: number;
   /** What the hospital(s) keep from online payments after commission. */
   hospitalShare: number;
@@ -250,7 +250,7 @@ export async function hospitalAnalytics(
     range: { ...range, timezone: tz },
     currency: hospital.currency,
     bookings: { ...bookings, onlineShare: percentOf(bookings.online, bookings.total) },
-    /** `commission` is MediQ's fee on online payments; `hospitalShare` is what the hospital keeps. */
+    /** `commission` is Care Bridge's fee on online payments; `hospitalShare` is what the hospital keeps. */
     money:
       mergeMoney(paidRows, refundRows).find((m) => m.currency === hospital.currency) ??
       emptyMoney(hospital.currency),

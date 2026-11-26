@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "MediQ: Doctor Appointments",
-    short_name: "MediQ",
+    name: "Care Bridge: Doctor Appointments",
+    short_name: "Care Bridge",
     description: "Book a doctor, pay online and get your token number instantly.",
     id: "/",
     lang: "en-IN",

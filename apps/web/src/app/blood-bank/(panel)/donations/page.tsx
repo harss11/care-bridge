@@ -164,7 +164,7 @@ function RecordDonation({ onRecorded }: { onRecorded: () => void }) {
           inputMode="tel"
           autoComplete="off"
           placeholder="98765 43210"
-          hint="The donor must have registered as a donor in the MediQ app."
+          hint="The donor must have registered as a donor in the Care Bridge app."
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />

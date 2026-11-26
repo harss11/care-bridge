@@ -93,7 +93,7 @@ export class SmtpEmailProvider implements EmailProvider {
 // Brevo (formerly Sendinblue): https://developers.brevo.com/reference/sendtransacemail
 // ---------------------------------------------------------------------------
 
-/** "MediQ <a@b.com>" -> { name: "MediQ", email: "a@b.com" } */
+/** "Care Bridge <a@b.com>" -> { name: "Care Bridge", email: "a@b.com" } */
 export function parseAddress(from: string): { name?: string; email: string } {
   const m = /^\s*(.*?)\s*<([^>]+)>\s*$/.exec(from);
   if (!m) return { email: from.trim() };

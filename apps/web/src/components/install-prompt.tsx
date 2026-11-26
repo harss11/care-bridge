@@ -44,7 +44,7 @@ function isIosSafari(): boolean {
 const never = () => () => {};
 
 /**
- * Invites visitors to install MediQ on their home screen. It appears only where installing is
+ * Invites visitors to install Care Bridge on their home screen. It appears only where installing is
  * possible and not yet done, can be dismissed (and stays away for 30 days), and never blocks
  * anything. Patients open the app daily on hospital days: installing makes tokens one tap away.
  */
@@ -92,13 +92,13 @@ export function InstallPrompt() {
 
   return (
     <aside
-      aria-label="Install MediQ"
+      aria-label="Install Care Bridge"
       className="fixed inset-x-3 bottom-3 z-40 mx-auto flex max-w-md items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-lg"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/icon-192.png" alt="" width={44} height={44} className="rounded-xl" />
       <div className="min-w-0 flex-1 text-sm">
-        <div className="font-semibold text-slate-900">Install MediQ</div>
+        <div className="font-semibold text-slate-900">Install Care Bridge</div>
         <div className="text-slate-600">
           {event
             ? "Open your tokens in one tap, even on a weak connection."

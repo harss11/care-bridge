@@ -16,7 +16,7 @@ import type { recordDonationSchema } from "./donor.schemas.js";
 type RecordInput = z.output<typeof recordDonationSchema>;
 
 const NOT_FOUND =
-  "No registered donor has this number. Ask the donor to register in the MediQ app first.";
+  "No registered donor has this number. Ask the donor to register in the Care Bridge app first.";
 
 /**
  * Finds a registered donor by phone so staff can record a donation. The same answer is given

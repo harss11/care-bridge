@@ -403,7 +403,7 @@ describe("reminders", () => {
     await dispatchNotifications();
     const message = sentTo(await phoneOf(p!)).find((m) => m.template === "appointment_reminder")!;
     expect(message.body).toMatch(
-      /^MediQ reminder: .+ is today at \d{1,2}:\d{2} (am|pm)\. Token \d+\.$/,
+      /^Care Bridge reminder: .+ is today at \d{1,2}:\d{2} (am|pm)\. Token \d+\.$/,
     );
   });
 

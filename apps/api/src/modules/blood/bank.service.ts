@@ -15,7 +15,7 @@ type RegisterInput = z.output<typeof registerBankSchema>;
 type UpdateInput = z.output<typeof updateBankSchema>;
 
 const LICENSE_TAKEN =
-  "A blood bank with this licence number is already registered. If it is yours, contact MediQ support.";
+  "A blood bank with this licence number is already registered. If it is yours, contact Care Bridge support.";
 
 /**
  * A blood bank registers itself. Its contact phone is proved with a code first, and the first
@@ -103,7 +103,7 @@ export async function updateBloodBank(scope: BankScope, patch: UpdateInput, meta
   const touchesIdentity = LOCKED_WHILE_LISTED.some((k) => patch[k] !== undefined);
   if (touchesIdentity && bank.status !== "REJECTED") {
     throw AppError.badRequest(
-      "The name and licence cannot be changed once the blood bank is verified. Contact MediQ support.",
+      "The name and licence cannot be changed once the blood bank is verified. Contact Care Bridge support.",
       "FIELD_LOCKED",
     );
   }

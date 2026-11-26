@@ -302,7 +302,7 @@ const HOSPITALS: DemoHospital[] = [
 ];
 
 const disclaimer = (name: string) =>
-  `Demo listing created for the MediQ project. It is not run by or affiliated with ${name}. ` +
+  `Demo listing created for the Care Bridge project. It is not run by or affiliated with ${name}. ` +
   `The doctors and time slots shown are samples, not real appointments: please contact the ` +
   `hospital directly to book a visit.`;
 

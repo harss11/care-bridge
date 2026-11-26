@@ -160,22 +160,22 @@ export const NOTICE_TEXT: Record<
 > = {
   ending_soon: {
     tone: "info",
-    text: "Your MediQ plan ends soon. Please arrange the payment so online bookings are not interrupted.",
+    text: "Your Care Bridge plan ends soon. Please arrange the payment so online bookings are not interrupted.",
   },
   grace: {
     tone: "info",
-    text: "Your MediQ plan period has ended. Online bookings continue for a few more days. Please arrange the payment now.",
+    text: "Your Care Bridge plan period has ended. Online bookings continue for a few more days. Please arrange the payment now.",
   },
   expired: {
     tone: "error",
-    text: "Your MediQ plan has ended, so patients cannot book online. Bookings at your desk and existing appointments are not affected. Please contact MediQ.",
+    text: "Your Care Bridge plan has ended, so patients cannot book online. Bookings at your desk and existing appointments are not affected. Please contact Care Bridge.",
   },
   suspended: {
     tone: "error",
-    text: "Your hospital is suspended, so patients cannot book online. Bookings at your desk and existing appointments are not affected. Please contact MediQ.",
+    text: "Your hospital is suspended, so patients cannot book online. Bookings at your desk and existing appointments are not affected. Please contact Care Bridge.",
   },
   cancelled: {
     tone: "error",
-    text: "Your MediQ plan was cancelled, so patients cannot book online. Please contact MediQ.",
+    text: "Your Care Bridge plan was cancelled, so patients cannot book online. Please contact Care Bridge.",
   },
 };

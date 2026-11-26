@@ -383,8 +383,8 @@ function PaymentForm({
     <Card className="space-y-3 p-4">
       <h2 className="font-semibold text-slate-900">Record a payment</h2>
       <p className="text-xs text-slate-500">
-        For money you received outside MediQ. It extends the plan from the end of the paid period
-        (or from today if it ran out).
+        For money you received outside Care Bridge. It extends the plan from the end of the paid
+        period (or from today if it ran out).
       </p>
       <form
         className="space-y-3"

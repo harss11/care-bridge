@@ -9,13 +9,15 @@ const VERSION = "2026-10-01";
 export default function TermsPage() {
   return (
     <LegalPage title="Terms of Service" version={VERSION}>
-      <p>By creating an account or booking an appointment on MediQ you agree to these terms.</p>
-
-      <h2>What MediQ is</h2>
       <p>
-        MediQ is a booking platform. Medical care is provided solely by the hospitals and doctors
-        you choose; MediQ does not provide medical advice. In an emergency, call 112 or go to the
-        nearest hospital immediately.
+        By creating an account or booking an appointment on Care Bridge you agree to these terms.
+      </p>
+
+      <h2>What Care Bridge is</h2>
+      <p>
+        Care Bridge is a booking platform. Medical care is provided solely by the hospitals and
+        doctors you choose; Care Bridge does not provide medical advice. In an emergency, call 112
+        or go to the nearest hospital immediately.
       </p>
 
       <h2>Bookings and payments</h2>
@@ -37,8 +39,8 @@ export default function TermsPage() {
       <h2>Blood donors, requests and blood banks</h2>
       <ul>
         <li>
-          MediQ only connects people who need blood with donors and blood banks. We do not provide,
-          test, store, sell or guarantee blood, and we give no medical advice.
+          Care Bridge only connects people who need blood with donors and blood banks. We do not
+          provide, test, store, sell or guarantee blood, and we give no medical advice.
         </li>
         <li>
           Whether blood is available, and whether it is safe, is the responsibility of the blood
@@ -46,8 +48,8 @@ export default function TermsPage() {
           valid, for screening donors and for the stock figures it reports.
         </li>
         <li>
-          Blood must never be paid for through MediQ, and you must not ask anyone to pay you for it.
-          Do not make a request unless a patient really needs blood.
+          Blood must never be paid for through Care Bridge, and you must not ask anyone to pay you
+          for it. Do not make a request unless a patient really needs blood.
         </li>
         <li>
           A donor chooses whether to help and may stop at any time. Donating is the donor&apos;s own

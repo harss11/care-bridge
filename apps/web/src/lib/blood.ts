@@ -28,7 +28,7 @@ export const BANK_STATUS: Record<
 
 /** Shown wherever blood is asked for, offered or recorded. */
 export const BLOOD_DISCLAIMER =
-  "MediQ only connects people. It does not collect, store, test or sell blood. Whether blood is available, and whether it is safe, is the responsibility of the blood bank and the hospital. Never pay anyone for blood through MediQ, and always have blood checked by the hospital before use.";
+  "Care Bridge only connects people. It does not collect, store, test or sell blood. Whether blood is available, and whether it is safe, is the responsibility of the blood bank and the hospital. Never pay anyone for blood through Care Bridge, and always have blood checked by the hospital before use.";
 
 // ---------------------------------------------------------------------------
 // The secret key that lets a requester come back to their request. It lives only in this

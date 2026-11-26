@@ -19,7 +19,7 @@ export default function HospitalSettingsPage() {
       <ProfileForm hospital={data} onSaved={setData} />
       <EmergencyCard hospital={data} onSaved={setData} />
       <Card className="space-y-1 text-sm text-slate-600">
-        <h2 className="font-semibold text-slate-900">Managed by MediQ</h2>
+        <h2 className="font-semibold text-slate-900">Managed by Care Bridge</h2>
         <p>
           Name: <span className="text-slate-900">{data.name}</span> · Booking URL:{" "}
           <span className="font-mono text-slate-900">/h/{data.slug}</span> · Commission:{" "}
@@ -34,7 +34,7 @@ export default function HospitalSettingsPage() {
             })}
           </span>
         </p>
-        <p>Contact MediQ support to change these.</p>
+        <p>Contact Care Bridge support to change these.</p>
       </Card>
     </>
   );

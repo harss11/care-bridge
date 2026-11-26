@@ -181,7 +181,7 @@ function BankCard({ bank: b, group }: { bank: PublicBloodBank; group?: BloodGrou
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge tone="green">Verified by MediQ</Badge>
+          <Badge tone="green">Verified by Care Bridge</Badge>
           {b.distanceKm != null && <Badge tone="blue">{b.distanceKm.toFixed(1)} km</Badge>}
         </div>
       </div>

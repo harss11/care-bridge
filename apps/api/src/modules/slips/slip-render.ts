@@ -35,7 +35,7 @@ export async function renderSlips(
 ): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
   doc.setTitle(options.guides ? "Slip alignment sheet" : "Doctor slips");
-  doc.setCreator("MediQ");
+  doc.setCreator("Care Bridge");
   const sample = rows.flatMap((r) => Object.values(r)).join(" ");
   const fonts = await loadFonts(doc, { text: sample });
 

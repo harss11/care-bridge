@@ -1,4 +1,4 @@
-# MediQ
+# Care Bridge
 
 Online doctor appointment platform (India first, global-ready).
 Patients pick a hospital, department, doctor and slot, pay online and get a token number instantly.
@@ -62,7 +62,7 @@ prisma/
   day per number, no duplicates, per-address limits). Donors of the **same blood group** within the chosen radius and
   nearby verified blood banks are alerted by SMS. **Only after a donor taps "I can help" does the requester see
   that donor's number** (and only while the request is open). Donors never see the requester's number.
-- A clear **disclaimer** on every blood screen: MediQ only connects people; availability and safety are the blood
+- A clear **disclaimer** on every blood screen: Care Bridge only connects people; availability and safety are the blood
   bank's responsibility.
 
 **Phase 6**
@@ -336,7 +336,7 @@ or on the hosting services, so by hand:
       response) and try `GET /hospital/summary` as the hospital admin. It is a 404 when `DOCS_ENABLED=false`.
 - [ ] **Admin dashboard** (`/admin`): choose _Last 7 / 30 / 90 days_ and a custom range; the numbers and the two
       charts change; after a booking and a cancellation they move accordingly. Money shows _Paid online_, _Refunded_,
-      _MediQ commission_, _Hospitals keep_ and _Cash at the desk_ separately.
+      _Care Bridge commission_, _Hospitals keep_ and _Cash at the desk_ separately.
 - [ ] **Hospital analytics** (hospital panel > Analytics): choose a doctor; busy hours and the doctor list change;
       _Average wait_ appears once someone has been seen.
 - [ ] **Patient > Privacy**: _Download my data_ saves a JSON file with your appointments. _Erase my account_ stays
@@ -777,7 +777,7 @@ Cancelling does not refund yet: refund rules arrive with real payments in Phase 
 
 ### Blood banks, donors and requests (how it stays safe)
 
-- **MediQ connects people and never handles blood.** Every blood screen and the terms say so. The platform does not
+- **Care Bridge connects people and never handles blood.** Every blood screen and the terms say so. The platform does not
   record units collected or issued, only what a bank reports as stock, and says how old that figure is.
 - **No coupons.** An earlier plan had donations issue a single-use coupon that staff redeem. That was removed: a donation
   is a record (date, bank, confirmed group, amount) that sets the donor's waiting period. There is nothing issued to the
@@ -821,7 +821,7 @@ Cancelling does not refund yet: refund rules arrive with real payments in Phase 
 - **Statistics definitions** (so the numbers can be argued about): bookings count by **visit date** and exclude
   unpaid holds and expired ones; the cancellation rate is cancelled / all bookings; the no-show rate is
   no-shows / (seen + no-shows). Online money counts on the day it was **paid**, refunds on the day they were
-  **processed**, per currency. **Commission** is MediQ's fee on the money kept after refunds (a fully refunded
+  **processed**, per currency. **Commission** is Care Bridge's fee on the money kept after refunds (a fully refunded
   payment earns none). **Cash at the desk** is reported separately and carries no commission. "Refunds still to
   reach patients" is everything pending or failed right now, not limited to the period.
 - **Erasure** keeps the appointment, fee, payment and refund rows (the hospital and tax law need them) but removes
@@ -915,36 +915,36 @@ Set `SMS_PROVIDER` to `msg91` or `twilio` (the API refuses to start in productio
 - **MSG91** (SMS, India): set `MSG91_AUTH_KEY`. Indian SMS must use **DLT-registered templates**: register each text below with the variables written as `##name##`,
   then put each template id in the matching `MSG91_TEMPLATE_*` setting. Variables are limited to 30 characters (longer values are cut).
 
-| Setting                                   | Register this text                                                                                                                                                                                      |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `MSG91_TEMPLATE_OTP_LOGIN`                | `##otp## is your MediQ login code. It expires in ##minutes## minutes. Do not share it with anyone.`                                                                                                     |
-| `MSG91_TEMPLATE_BOOKING_CONFIRMED`        | `MediQ: Booking confirmed. ##name## with ##doctor## at ##hospital## on ##date##, ##time##. Token ##token##. Show your QR code at reception.`                                                            |
-| `MSG91_TEMPLATE_APPOINTMENT_REMINDER`     | `MediQ reminder: ##name##'s appointment with ##doctor## at ##hospital## is today at ##time##. Token ##token##.`                                                                                         |
-| `MSG91_TEMPLATE_APPOINTMENT_CANCELLED`    | `MediQ: Your appointment with ##doctor## on ##date##, ##time## is cancelled. ##refund##`                                                                                                                |
-| `MSG91_TEMPLATE_APPOINTMENT_RESCHEDULED`  | `MediQ: Appointment moved to ##date##, ##time## with ##doctor## at ##hospital##. Your new token is ##token##.`                                                                                          |
-| `MSG91_TEMPLATE_OTP_VERIFY`               | `##otp## is your MediQ verification code. It expires in ##minutes## minutes. Do not share it with anyone.` (blood requests and blood bank registration; falls back to the login code template if empty) |
-| `MSG91_TEMPLATE_BLOOD_REQUEST_ALERT`      | `MediQ URGENT: ##units## unit(s) of ##group## blood needed at ##place##, ##city##. If you can donate, open MediQ and tap I can help. MediQ only connects people; the blood bank confirms safety.`       |
-| `MSG91_TEMPLATE_BLOOD_REQUEST_BANK_ALERT` | `MediQ: ##units## unit(s) of ##group## blood are needed at ##place##, ##city##. Open your MediQ blood bank page to respond.`                                                                            |
-| `MSG91_TEMPLATE_BLOOD_REQUEST_ANSWERED`   | `MediQ: Someone can help with your ##group## blood request. Open your MediQ request page to see who and how to reach them.`                                                                             |
-| `MSG91_TEMPLATE_DONATION_RECORDED`        | `MediQ: Thank you for donating blood at ##bank##. You can donate again from ##date##. If this was not you, tell the blood bank.`                                                                        |
-| `MSG91_TEMPLATE_WAITLIST_SLOT_OPEN`       | `MediQ: A seat has opened with ##doctor## at ##hospital## on ##date## for ##name##. Seats go to whoever books first, so open MediQ now.`                                                                |
+| Setting                                   | Register this text                                                                                                                                                                                                  |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MSG91_TEMPLATE_OTP_LOGIN`                | `##otp## is your Care Bridge login code. It expires in ##minutes## minutes. Do not share it with anyone.`                                                                                                           |
+| `MSG91_TEMPLATE_BOOKING_CONFIRMED`        | `Care Bridge: Booking confirmed. ##name## with ##doctor## at ##hospital## on ##date##, ##time##. Token ##token##. Show your QR code at reception.`                                                                  |
+| `MSG91_TEMPLATE_APPOINTMENT_REMINDER`     | `Care Bridge reminder: ##name##'s appointment with ##doctor## at ##hospital## is today at ##time##. Token ##token##.`                                                                                               |
+| `MSG91_TEMPLATE_APPOINTMENT_CANCELLED`    | `Care Bridge: Your appointment with ##doctor## on ##date##, ##time## is cancelled. ##refund##`                                                                                                                      |
+| `MSG91_TEMPLATE_APPOINTMENT_RESCHEDULED`  | `Care Bridge: Appointment moved to ##date##, ##time## with ##doctor## at ##hospital##. Your new token is ##token##.`                                                                                                |
+| `MSG91_TEMPLATE_OTP_VERIFY`               | `##otp## is your Care Bridge verification code. It expires in ##minutes## minutes. Do not share it with anyone.` (blood requests and blood bank registration; falls back to the login code template if empty)       |
+| `MSG91_TEMPLATE_BLOOD_REQUEST_ALERT`      | `Care Bridge URGENT: ##units## unit(s) of ##group## blood needed at ##place##, ##city##. If you can donate, open Care Bridge and tap I can help. Care Bridge only connects people; the blood bank confirms safety.` |
+| `MSG91_TEMPLATE_BLOOD_REQUEST_BANK_ALERT` | `Care Bridge: ##units## unit(s) of ##group## blood are needed at ##place##, ##city##. Open your Care Bridge blood bank page to respond.`                                                                            |
+| `MSG91_TEMPLATE_BLOOD_REQUEST_ANSWERED`   | `Care Bridge: Someone can help with your ##group## blood request. Open your Care Bridge request page to see who and how to reach them.`                                                                             |
+| `MSG91_TEMPLATE_DONATION_RECORDED`        | `Care Bridge: Thank you for donating blood at ##bank##. You can donate again from ##date##. If this was not you, tell the blood bank.`                                                                              |
+| `MSG91_TEMPLATE_WAITLIST_SLOT_OPEN`       | `Care Bridge: A seat has opened with ##doctor## at ##hospital## on ##date## for ##name##. Seats go to whoever books first, so open Care Bridge now.`                                                                |
 
 **Hindi.** Patients who chose Hindi get Hindi SMS. Register these Hindi texts as **separate DLT templates** (Unicode: 70 characters per SMS segment instead
 of 160, so they cost more) and give their ids as JSON in `MSG91_HINDI_TEMPLATE_IDS`, keyed by the message name, for example
 `{"booking_confirmed":"6700...","waitlist_slot_open":"6700..."}`. A message with no Hindi id is sent in English, so you can add them one by one.
 The OTP login codes stay English. Twilio sends the Hindi text as it is. Have a native speaker check the wording before you register it.
 
-| Message                    | Register this Hindi text                                                                                                                                                                                          |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `booking_confirmed`        | `MediQ: बुकिंग पक्की हो गई। ##name##, ##doctor## के साथ ##hospital## में ##date##, ##time## पर। टोकन ##token##। रिसेप्शन पर अपना QR कोड दिखाएँ।`                                                                  |
-| `appointment_reminder`     | `MediQ अनुस्मारक: ##name## की ##doctor## के साथ ##hospital## में अपॉइंटमेंट आज ##time## पर है। टोकन ##token##।`                                                                                                   |
-| `appointment_cancelled`    | `MediQ: ##doctor## के साथ ##date##, ##time## की आपकी अपॉइंटमेंट रद्द हो गई है। ##refund##`                                                                                                                        |
-| `appointment_rescheduled`  | `MediQ: अपॉइंटमेंट बदलकर ##date##, ##time## पर ##doctor## के साथ ##hospital## में कर दी गई है। आपका नया टोकन ##token## है।`                                                                                       |
-| `blood_request_alert`      | `MediQ ज़रूरी: ##place##, ##city## में ##group## रक्त की ##units## यूनिट चाहिए। यदि आप रक्तदान कर सकते हैं तो MediQ खोलकर मदद की पेशकश करें। MediQ केवल लोगों को जोड़ता है; सुरक्षा की पुष्टि ब्लड बैंक करता है।` |
-| `blood_request_bank_alert` | `MediQ: ##place##, ##city## में ##group## रक्त की ##units## यूनिट की ज़रूरत है। जवाब देने के लिए अपना MediQ ब्लड बैंक पेज खोलें।`                                                                                 |
-| `blood_request_answered`   | `MediQ: आपके ##group## रक्त अनुरोध में कोई मदद कर सकता है। कौन है और उनसे कैसे संपर्क करें, यह देखने के लिए MediQ अनुरोध पेज खोलें।`                                                                              |
-| `donation_recorded`        | `MediQ: ##bank## में रक्तदान के लिए धन्यवाद। आप ##date## से दोबारा रक्तदान कर सकते हैं। यदि यह आप नहीं थे तो ब्लड बैंक को बताएँ।`                                                                                 |
-| `waitlist_slot_open`       | `MediQ: ##hospital## में ##doctor## के पास ##date## को ##name## के लिए एक सीट खाली हुई है। सीट पहले बुक करने वाले को मिलेगी, इसलिए अभी MediQ खोलें।`                                                              |
+| Message                    | Register this Hindi text                                                                                                                                                                                                            |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `booking_confirmed`        | `Care Bridge: बुकिंग पक्की हो गई। ##name##, ##doctor## के साथ ##hospital## में ##date##, ##time## पर। टोकन ##token##। रिसेप्शन पर अपना QR कोड दिखाएँ।`                                                                              |
+| `appointment_reminder`     | `Care Bridge अनुस्मारक: ##name## की ##doctor## के साथ ##hospital## में अपॉइंटमेंट आज ##time## पर है। टोकन ##token##।`                                                                                                               |
+| `appointment_cancelled`    | `Care Bridge: ##doctor## के साथ ##date##, ##time## की आपकी अपॉइंटमेंट रद्द हो गई है। ##refund##`                                                                                                                                    |
+| `appointment_rescheduled`  | `Care Bridge: अपॉइंटमेंट बदलकर ##date##, ##time## पर ##doctor## के साथ ##hospital## में कर दी गई है। आपका नया टोकन ##token## है।`                                                                                                   |
+| `blood_request_alert`      | `Care Bridge ज़रूरी: ##place##, ##city## में ##group## रक्त की ##units## यूनिट चाहिए। यदि आप रक्तदान कर सकते हैं तो Care Bridge खोलकर मदद की पेशकश करें। Care Bridge केवल लोगों को जोड़ता है; सुरक्षा की पुष्टि ब्लड बैंक करता है।` |
+| `blood_request_bank_alert` | `Care Bridge: ##place##, ##city## में ##group## रक्त की ##units## यूनिट की ज़रूरत है। जवाब देने के लिए अपना Care Bridge ब्लड बैंक पेज खोलें।`                                                                                       |
+| `blood_request_answered`   | `Care Bridge: आपके ##group## रक्त अनुरोध में कोई मदद कर सकता है। कौन है और उनसे कैसे संपर्क करें, यह देखने के लिए Care Bridge अनुरोध पेज खोलें।`                                                                                    |
+| `donation_recorded`        | `Care Bridge: ##bank## में रक्तदान के लिए धन्यवाद। आप ##date## से दोबारा रक्तदान कर सकते हैं। यदि यह आप नहीं थे तो ब्लड बैंक को बताएँ।`                                                                                             |
+| `waitlist_slot_open`       | `Care Bridge: ##hospital## में ##doctor## के पास ##date## को ##name## के लिए एक सीट खाली हुई है। सीट पहले बुक करने वाले को मिलेगी, इसलिए अभी Care Bridge खोलें।`                                                                    |
 
 The MSG91 and Twilio and Razorpay clients are tested against recorded request/response shapes, not against the live services: try each once with real test credentials before launch.
 

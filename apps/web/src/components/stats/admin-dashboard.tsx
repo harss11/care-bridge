@@ -113,8 +113,8 @@ export function AdminDashboard() {
             ))}
             <p className="text-xs text-slate-500">
               Online payments count on the day they were paid and refunds on the day they were
-              processed. Commission is MediQ&apos;s fee on the money kept after refunds. Cash taken
-              at the desk carries no commission.
+              processed. Commission is Care Bridge&apos;s fee on the money kept after refunds. Cash
+              taken at the desk carries no commission.
             </p>
           </div>
 

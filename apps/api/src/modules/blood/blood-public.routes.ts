@@ -69,7 +69,7 @@ bloodPublicRouter.post("/otp", bloodOtpLimiter, async (req, res) => {
   ok(res, reply(phone));
 });
 
-/** A blood bank registers (the contact phone proved with a code). It is listed only after MediQ verifies the licence. */
+/** A blood bank registers (the contact phone proved with a code). It is listed only after Care Bridge verifies the licence. */
 bloodPublicRouter.post("/banks/register", bloodRegisterLimiter, async (req, res) => {
   const input = parse(registerBankSchema, req.body);
   const bank = await registerBloodBank(input, requestMeta(req));

@@ -8,7 +8,7 @@ ticked. The technical steps are in `docs/DEPLOYMENT.md`; backups are in `docs/BA
 - [ ] **Lawyer has reviewed** the privacy policy and terms (the pages say "draft for development" until you
       remove that banner in `apps/web/src/components/legal-page.tsx`). Set `PRIVACY_POLICY_VERSION` and
       `TERMS_VERSION` to the dates of the final texts, in the API settings and on the pages.
-- [ ] A real **Grievance Officer** email replaces `privacy@mediq.example` in the privacy policy, and someone
+- [ ] A real **Grievance Officer** email replaces `privacy@carebridge.example` in the privacy policy, and someone
       reads that inbox.
 - [ ] A **hospital agreement** is signed with each hospital: who is responsible for the patient details taken at
       the desk (the hospital), the commission %, the settlement schedule, the cancellation policy, and what
@@ -21,7 +21,7 @@ ticked. The technical steps are in `docs/DEPLOYMENT.md`; backups are in `docs/BA
 
 - [ ] **Blood module (only if you switch it on for the pilot):** the lawyer has also read the blood sections of the privacy
       policy and terms, and you have decided **who checks each blood bank's licence** and how (against the issuing authority,
-      not just a photo). Nobody should be approved by guesswork: an unlicensed bank on MediQ is a patient-safety problem.
+      not just a photo). Nobody should be approved by guesswork: an unlicensed bank on Care Bridge is a patient-safety problem.
 - [ ] **SMS budget for blood alerts.** One request can send up to 100 donor SMS plus 10 to blood banks. Decide the monthly limit
       you are willing to pay, and who watches it. The limits are in `.env` (`BLOOD_MAX_DONORS_ALERTED`, 3 requests a day per number).
 - [ ] The extra **DLT templates** are registered and their ids set (see the README table): the verification code, the donor alert,
@@ -93,7 +93,7 @@ ticked. The technical steps are in `docs/DEPLOYMENT.md`; backups are in `docs/BA
 4. [ ] They know to **keep the stock figures current**: after a day the public sees them as "call to confirm".
 5. [ ] The blood bank's public phone number is answered at all hours it claims to be open, because emergency requests
        send people to it.
-6. [ ] They understand the rules: MediQ never sells or handles blood, and **nobody may be asked to pay through MediQ**.
+6. [ ] They understand the rules: Care Bridge never sells or handles blood, and **nobody may be asked to pay through Care Bridge**.
 
 ## D. Launch week
 

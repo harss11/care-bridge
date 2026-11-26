@@ -113,8 +113,8 @@ export default function HospitalAnalyticsPage() {
             <MoneyBlock m={data.money} asHospital />
             <p className="text-xs text-slate-500">
               Online payments count on the day they were paid and refunds on the day they were
-              processed. The MediQ fee is charged only on online money you keep after refunds. Cash
-              at the desk has no fee.
+              processed. The Care Bridge fee is charged only on online money you keep after refunds.
+              Cash at the desk has no fee.
             </p>
           </div>
 

@@ -1,7 +1,7 @@
       <h2>Blood donors, requests and blood banks</h2>
       <ul>
         <li>
-          MediQ only connects people who need blood with donors and blood banks. We do not provide, test, store, sell
+          Care Bridge only connects people who need blood with donors and blood banks. We do not provide, test, store, sell
           or guarantee blood, and we give no medical advice.
         </li>
         <li>
@@ -10,7 +10,7 @@
           stock figures it reports.
         </li>
         <li>
-          Blood must never be paid for through MediQ, and you must not ask anyone to pay you for it. Do not make a
+          Blood must never be paid for through Care Bridge, and you must not ask anyone to pay you for it. Do not make a
           request unless a patient really needs blood.
         </li>
         <li>

@@ -22,7 +22,7 @@ export const eraseSchema = z.object({
 
 export const languageSchema = z.object({ language: z.enum(LANGUAGES) });
 
-/** The language of MediQ and of the SMS it sends this patient. */
+/** The language of Care Bridge and of the SMS it sends this patient. */
 accountRouter.patch("/language", async (req, res) => {
   const { language } = parse(languageSchema, req.body);
   await prisma.user.update({ where: { id: requireAuth(req).userId }, data: { language } });

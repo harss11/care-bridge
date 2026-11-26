@@ -130,7 +130,7 @@ function operation(r: RouteInfo): Json {
 }
 
 const INTRO = `
-REST API behind the MediQ web app (and the future mobile app).
+REST API behind the Care Bridge web app (and the future mobile app).
 
 **Responses** are always \`{ "success": boolean, "data": ..., "error": { "code", "message", "details?" } | null }\`, except PDF downloads.
 
@@ -156,7 +156,7 @@ export function buildOpenApi(routes: RouteInfo[] = routeInventory()): Json {
   const used = new Set(routes.map((r) => ENDPOINTS[docKey(r)]?.tag));
   return {
     openapi: "3.0.3",
-    info: { title: "MediQ API", version: "1.0.0", description: INTRO },
+    info: { title: "Care Bridge API", version: "1.0.0", description: INTRO },
     servers: [{ url: PREFIX }],
     tags: TAG_ORDER.filter((t) => used.has(t)).map((name) => ({ name })),
     paths,

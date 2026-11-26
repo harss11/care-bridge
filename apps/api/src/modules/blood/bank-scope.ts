@@ -25,8 +25,8 @@ export async function bankScope(req: Request, opts: { active?: boolean } = {}): 
   if (opts.active && bank.status !== "ACTIVE") {
     throw AppError.forbidden(
       bank.status === "REJECTED"
-        ? `MediQ could not verify your blood bank: ${bank.rejectedReason ?? "see your profile"}. Fix the details and resubmit.`
-        : "Your blood bank is waiting for MediQ to verify its licence. You can do this once it is approved.",
+        ? `Care Bridge could not verify your blood bank: ${bank.rejectedReason ?? "see your profile"}. Fix the details and resubmit.`
+        : "Your blood bank is waiting for Care Bridge to verify its licence. You can do this once it is approved.",
       "BANK_NOT_VERIFIED",
     );
   }

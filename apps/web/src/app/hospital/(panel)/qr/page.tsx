@@ -25,7 +25,7 @@ export default function QrCodesPage() {
           <h2 className="text-lg font-semibold text-slate-900">Hospital</h2>
           {hospital.status !== "ACTIVE" && (
             <Alert tone="info">
-              The hospital page opens for patients once MediQ approves your hospital.
+              The hospital page opens for patients once Care Bridge approves your hospital.
             </Alert>
           )}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -62,7 +62,9 @@ export default function QrCodesPage() {
               subtitle={d.department?.name}
               value={queuePageUrl(d.qrToken)}
               caption="Scan for the live queue"
-              filename={"mediq-queue-" + d.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".png"}
+              filename={
+                "care-bridge-queue-" + d.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".png"
+              }
               size={200}
             />
           ))}

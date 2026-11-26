@@ -20,7 +20,7 @@ import { formatDate } from "@/lib/format";
 import type { HospitalReviewRow, Paginated } from "@/lib/types";
 import { useApi } from "@/lib/use-api";
 
-/** What patients said about this hospital. A hospital cannot hide a review, only report it to MediQ. */
+/** What patients said about this hospital. A hospital cannot hide a review, only report it to Care Bridge. */
 export default function HospitalReviewsPage() {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState<"all" | "reported">("all");
@@ -66,7 +66,7 @@ export default function HospitalReviewsPage() {
                     <RatingLine rating={{ average: r.rating, count: 1 }} single />
                     <div className="flex items-center gap-2">
                       {r.reportedAt && <Badge tone="amber">Reported</Badge>}
-                      {!r.isPublished && <Badge tone="red">Hidden by MediQ</Badge>}
+                      {!r.isPublished && <Badge tone="red">Hidden by Care Bridge</Badge>}
                       <span className="text-xs text-slate-500">
                         {formatDate(r.createdAt.slice(0, 10))}
                       </span>
@@ -82,7 +82,7 @@ export default function HospitalReviewsPage() {
                     </p>
                   )}
                   {r.hiddenReason && (
-                    <p className="text-sm text-slate-600">MediQ: {r.hiddenReason}</p>
+                    <p className="text-sm text-slate-600">Care Bridge: {r.hiddenReason}</p>
                   )}
                   {!r.reportedAt && r.isPublished && (
                     <Button
@@ -106,8 +106,8 @@ export default function HospitalReviewsPage() {
 
       <ConfirmDialog
         open={reporting !== null}
-        title="Report this review to MediQ?"
-        message="MediQ checks it against the review rules (not a patient, abuse, personal details, advertising). A review is not removed because it is a bad one."
+        title="Report this review to Care Bridge?"
+        message="Care Bridge checks it against the review rules (not a patient, abuse, personal details, advertising). A review is not removed because it is a bad one."
         confirmLabel="Send report"
         onClose={() => setReporting(null)}
         onConfirm={async () => {

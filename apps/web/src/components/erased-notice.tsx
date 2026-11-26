@@ -9,7 +9,7 @@ function Notice() {
   return (
     <div className="mx-auto max-w-5xl px-4">
       <Alert tone="success">
-        Your account has been erased and you are signed out. Thank you for using MediQ.
+        Your account has been erased and you are signed out. Thank you for using Care Bridge.
       </Alert>
     </div>
   );

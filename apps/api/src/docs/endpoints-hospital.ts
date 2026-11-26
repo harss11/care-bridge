@@ -41,7 +41,7 @@ export const HOSPITAL_ENDPOINTS: EndpointRegistry = {
     query: hospitalAnalyticsQuery,
     description:
       HOSP +
-      " Defaults to the last 30 days in the hospital's timezone. Includes per-doctor and per-department counts, bookings by hour of day, average wait (check-in to doctor) and consultation minutes, online money received, MediQ's commission and what the hospital keeps, and cash taken at the desk.",
+      " Defaults to the last 30 days in the hospital's timezone. Includes per-doctor and per-department counts, bookings by hour of day, average wait (check-in to doctor) and consultation minutes, online money received, Care Bridge's commission and what the hospital keeps, and cash taken at the desk.",
   }),
 
   "GET /hospital/departments": d(H, "Departments", { query: departmentsListQuery }),

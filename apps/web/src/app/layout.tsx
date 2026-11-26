@@ -7,11 +7,11 @@ import { LanguageProvider } from "@/lib/i18n";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: { default: "MediQ: Book doctor appointments", template: "%s · MediQ" },
+  title: { default: "Care Bridge: Book doctor appointments", template: "%s · Care Bridge" },
   description:
     "Book a doctor at your nearest hospital, pay online and get your token number instantly.",
-  applicationName: "MediQ",
-  appleWebApp: { capable: true, title: "MediQ", statusBarStyle: "default" },
+  applicationName: "Care Bridge",
+  appleWebApp: { capable: true, title: "Care Bridge", statusBarStyle: "default" },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     apple: "/apple-touch-icon.png",

@@ -32,8 +32,14 @@ describe("email utils", () => {
   });
 
   it("parses a sender with or without a name", () => {
-    expect(parseAddress("MediQ <hi@mediq.in>")).toEqual({ name: "MediQ", email: "hi@mediq.in" });
-    expect(parseAddress('"MediQ" <hi@mediq.in>')).toEqual({ name: "MediQ", email: "hi@mediq.in" });
+    expect(parseAddress("Care Bridge <hi@mediq.in>")).toEqual({
+      name: "Care Bridge",
+      email: "hi@mediq.in",
+    });
+    expect(parseAddress('"Care Bridge" <hi@mediq.in>')).toEqual({
+      name: "Care Bridge",
+      email: "hi@mediq.in",
+    });
     expect(parseAddress("hi@mediq.in")).toEqual({ email: "hi@mediq.in" });
   });
 });
@@ -55,14 +61,14 @@ describe("email providers", () => {
 
   it("Brevo sends the sender, recipient and content", async () => {
     const { impl, calls } = fakeFetch(201, { messageId: "<m1>" });
-    const p = new BrevoEmailProvider("key", "MediQ <hi@mediq.in>", impl);
+    const p = new BrevoEmailProvider("key", "Care Bridge <hi@mediq.in>", impl);
     await expect(p.send({ to: "a@b.com", subject: "S", text: "T" })).resolves.toEqual({
       providerMessageId: "<m1>",
     });
     expect(calls[0]!.url).toBe("https://api.brevo.com/v3/smtp/email");
     expect((calls[0]!.init.headers as Record<string, string>)["api-key"]).toBe("key");
     expect(JSON.parse(calls[0]!.init.body as string)).toMatchObject({
-      sender: { name: "MediQ", email: "hi@mediq.in" },
+      sender: { name: "Care Bridge", email: "hi@mediq.in" },
       to: [{ email: "a@b.com" }],
       subject: "S",
       textContent: "T",

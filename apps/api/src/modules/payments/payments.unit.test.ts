@@ -214,7 +214,7 @@ describe("message templates", () => {
 
   it("render every placeholder", () => {
     expect(renderBody("booking_confirmed", vars)).toBe(
-      "MediQ: Booking confirmed. Aarav with Dr. Mehta at Sunrise on Mon, 12 Oct, 9:30 am. Token 7. Show your QR code at reception.",
+      "Care Bridge: Booking confirmed. Aarav with Dr. Mehta at Sunrise on Mon, 12 Oct, 9:30 am. Token 7. Show your QR code at reception.",
     );
     expect(renderBody("appointment_cancelled", vars)).toContain("Refund of Rs.500.");
     for (const template of Object.keys(TEMPLATE_VARIABLES) as Array<
@@ -235,7 +235,7 @@ describe("message templates", () => {
 
   it("give the exact text to register with the SMS regulator (DLT)", () => {
     expect(dltText("appointment_reminder")).toBe(
-      "MediQ reminder: ##name##'s appointment with ##doctor## at ##hospital## is today at ##time##. Token ##token##.",
+      "Care Bridge reminder: ##name##'s appointment with ##doctor## at ##hospital## is today at ##time##. Token ##token##.",
     );
   });
 });

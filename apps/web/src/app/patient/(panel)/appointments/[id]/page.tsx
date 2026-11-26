@@ -253,7 +253,7 @@ export default function AppointmentPage() {
                   title: "Token " + a.tokenNumber + " · " + a.doctor.name,
                   caption: formatCheckInCode(a.checkInCode!),
                 },
-                "mediq-ticket-" + a.tokenNumber + ".png",
+                "care-bridge-ticket-" + a.tokenNumber + ".png",
               ).catch((err) => setReceiptError(errorMessage(err)))
             }
           >

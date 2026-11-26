@@ -69,7 +69,7 @@ const EnvSchema = z
      * brevo: Brevo HTTP API (free, 300 emails a day). resend: Resend HTTP API (free, 100 a day).
      */
     EMAIL_PROVIDER: z.enum(["mock", "smtp", "brevo", "resend"]).default("mock"),
-    /** Sender shown to patients, e.g. "MediQ <yourname@gmail.com>". Must be an address the provider lets you send from. */
+    /** Sender shown to patients, e.g. "Care Bridge <yourname@gmail.com>". Must be an address the provider lets you send from. */
     EMAIL_FROM: z.string().trim().optional(),
     SMTP_HOST: z.string().trim().default("smtp.gmail.com"),
     SMTP_PORT: z.coerce.number().int().positive().default(465),

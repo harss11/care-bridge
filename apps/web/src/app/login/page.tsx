@@ -312,8 +312,8 @@ function PatientLogin() {
                     onChange={(e) => setAcceptPrivacy(e.target.checked)}
                   />
                   <span>
-                    I consent to MediQ processing my personal and health data to book and manage
-                    appointments, as described in the{" "}
+                    I consent to Care Bridge processing my personal and health data to book and
+                    manage appointments, as described in the{" "}
                     <Link
                       href="/privacy"
                       target="_blank"

@@ -186,7 +186,7 @@ export default function RequestStatusPage() {
               ))}
               <p className="text-xs text-slate-500">
                 A donor&apos;s number is shown only while the request is open. The blood bank or
-                hospital must check the donor and the blood: MediQ does not.
+                hospital must check the donor and the blood: Care Bridge does not.
               </p>
             </section>
           )}

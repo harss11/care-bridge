@@ -30,7 +30,7 @@ describe("Hindi message texts", () => {
     for (const t of templates) {
       const text = renderBody(t, vars, "hi");
       expect(text, t).toMatch(DEVANAGARI);
-      expect(text, t).toMatch(/^MediQ/);
+      expect(text, t).toMatch(/^Care Bridge/);
       expect(text, t).not.toMatch(/[{}]/);
     }
   });
@@ -55,7 +55,7 @@ describe("Hindi message texts", () => {
 
   it("give the Hindi text to register with the SMS regulator", () => {
     expect(dltText("waitlist_slot_open", "hi")).toBe(
-      "MediQ: ##hospital## में ##doctor## के पास ##date## को ##name## के लिए एक सीट खाली हुई है। सीट पहले बुक करने वाले को मिलेगी, इसलिए अभी MediQ खोलें।",
+      "Care Bridge: ##hospital## में ##doctor## के पास ##date## को ##name## के लिए एक सीट खाली हुई है। सीट पहले बुक करने वाले को मिलेगी, इसलिए अभी Care Bridge खोलें।",
     );
     expect(dltText("waitlist_slot_open")).toContain("##doctor##");
   });

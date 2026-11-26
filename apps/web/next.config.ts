@@ -41,7 +41,7 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          // Enforced: nobody may put MediQ in a frame (clickjacking).
+          // Enforced: nobody may put Care Bridge in a frame (clickjacking).
           { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
           { key: "Content-Security-Policy-Report-Only", value: cspReportOnly },
           // Browsers ignore this over plain http (local development) and obey it on https.

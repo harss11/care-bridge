@@ -19,7 +19,7 @@ export function Logo({ className }: { className?: string }) {
     <Link href="/" className={cx("inline-flex items-center gap-2 font-semibold", className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/icon.svg" alt="" width={28} height={28} className="rounded-md" />
-      <span className="text-lg tracking-tight text-slate-900">MediQ</span>
+      <span className="text-lg tracking-tight text-slate-900">Care Bridge</span>
     </Link>
   );
 }

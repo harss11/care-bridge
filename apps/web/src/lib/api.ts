@@ -1,7 +1,7 @@
 import type { Session } from "./types";
 
 /**
- * Thin client for the MediQ REST API. All business logic lives in the API;
+ * Thin client for the Care Bridge REST API. All business logic lives in the API;
  * this file only handles transport and the session:
  *
  * - The access token is kept in memory only (never localStorage).

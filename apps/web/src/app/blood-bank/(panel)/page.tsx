@@ -95,7 +95,7 @@ export default function BloodBankOverviewPage() {
             </div>
             {!active && (
               <p className="text-xs text-slate-500">
-                You can answer once MediQ has verified your blood bank.
+                You can answer once Care Bridge has verified your blood bank.
               </p>
             )}
           </Card>

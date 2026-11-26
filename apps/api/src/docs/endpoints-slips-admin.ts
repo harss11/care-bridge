@@ -45,7 +45,7 @@ export const SLIP_AND_ADMIN_ENDPOINTS: EndpointRegistry = {
   "GET /admin/stats": d(ADM, "Revenue and booking statistics", {
     query: adminStatsQuery,
     description:
-      "Defaults to the last 30 days (at most 366). Bookings are counted by visit date; online money by the day it was paid and refunds by the day they were processed, per currency. Commission is MediQ's fee on the money kept after refunds. Cash taken at the desk is reported separately and carries no commission. refundsOutstanding lists refunds still owed to patients right now.",
+      "Defaults to the last 30 days (at most 366). Bookings are counted by visit date; online money by the day it was paid and refunds by the day they were processed, per currency. Commission is Care Bridge's fee on the money kept after refunds. Cash taken at the desk is reported separately and carries no commission. refundsOutstanding lists refunds still owed to patients right now.",
   }),
   "GET /admin/hospitals": d(ADM, "Hospitals", { query: listHospitalsQuery }),
   "POST /admin/hospitals": d(ADM, "Create a hospital and its login", {

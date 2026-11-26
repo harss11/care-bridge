@@ -9,7 +9,7 @@ import { Alert, Button, Card, Checkbox, Field } from "@/components/ui";
 import { api, errorMessage, fieldErrors } from "@/lib/api";
 import { textOrNull } from "@/lib/format";
 
-/** A licensed blood bank registers. It is listed and can work only after MediQ has checked its licence. */
+/** A licensed blood bank registers. It is listed and can work only after Care Bridge has checked its licence. */
 export default function RegisterBloodBankPage() {
   const phone = usePhoneCode("BANK_REGISTRATION");
   const [f, setF] = useState({
@@ -108,8 +108,9 @@ export default function RegisterBloodBankPage() {
             Thank you: we will check your licence
           </h1>
           <p className="text-slate-600">
-            Your blood bank is registered but not listed yet. MediQ checks the licence number and
-            then approves it. You can sign in now to see where you stand and to prepare your stock.
+            Your blood bank is registered but not listed yet. Care Bridge checks the licence number
+            and then approves it. You can sign in now to see where you stand and to prepare your
+            stock.
           </p>
           <Link
             href="/blood-bank/login"

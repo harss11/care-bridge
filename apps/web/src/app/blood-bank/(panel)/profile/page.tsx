@@ -109,8 +109,8 @@ function ProfileForm({ bank, onSaved }: { bank: OwnBloodBank; onSaved: () => voi
       />
       {rejected && (
         <Alert>
-          MediQ could not verify this blood bank: <strong>{bank.rejectedReason}</strong>. Correct
-          the details below and save to send it for verification again.
+          Care Bridge could not verify this blood bank: <strong>{bank.rejectedReason}</strong>.
+          Correct the details below and save to send it for verification again.
         </Alert>
       )}
       <form onSubmit={submit} noValidate>
@@ -141,7 +141,8 @@ function ProfileForm({ bank, onSaved }: { bank: OwnBloodBank; onSaved: () => voi
           </div>
           {!rejected && (
             <p className="text-xs text-slate-500">
-              The name and licence are locked once verified. To change them, contact MediQ support.
+              The name and licence are locked once verified. To change them, contact Care Bridge
+              support.
             </p>
           )}
           <Field

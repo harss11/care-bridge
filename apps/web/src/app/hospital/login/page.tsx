@@ -7,7 +7,7 @@ export default function HospitalLoginPage() {
   return (
     <StaffLoginForm
       title="Hospital login"
-      subtitle="Use the login ID and password provided by MediQ."
+      subtitle="Use the login ID and password provided by Care Bridge."
     />
   );
 }

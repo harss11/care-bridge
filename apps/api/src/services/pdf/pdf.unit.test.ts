@@ -40,9 +40,9 @@ describe("PDF text", () => {
 
   it("measures and wraps text", async () => {
     const { fonts } = await setup();
-    const one = textWidth("MediQ", 12, fonts);
+    const one = textWidth("Care Bridge", 12, fonts);
     expect(one).toBeGreaterThan(20);
-    expect(textWidth("MediQ", 12, fonts, true)).toBeGreaterThan(one); // bold is wider
+    expect(textWidth("Care Bridge", 12, fonts, true)).toBeGreaterThan(one); // bold is wider
     const lines = wrapText("one two three four five six seven eight", 60, 12, fonts);
     expect(lines.length).toBeGreaterThan(1);
     expect(lines.join(" ")).toBe("one two three four five six seven eight");

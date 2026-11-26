@@ -32,7 +32,7 @@ const BANK = "Blood bank panel";
 const ADM = "Platform admin";
 
 const NOTE =
-  "MediQ only connects people. Availability and safety of blood are the blood bank's responsibility, and blood must never be paid for through MediQ.";
+  "Care Bridge only connects people. Availability and safety of blood are the blood bank's responsibility, and blood must never be paid for through Care Bridge.";
 const KEY_HEADER = {
   name: "X-Blood-Request-Key",
   description:
@@ -41,13 +41,13 @@ const KEY_HEADER = {
 };
 const BANK_WHO = "Role: blood bank staff, for their own blood bank only.";
 const ACTIVE_ONLY =
-  " The blood bank must have been verified by MediQ (otherwise 403 BANK_NOT_VERIFIED).";
+  " The blood bank must have been verified by Care Bridge (otherwise 403 BANK_NOT_VERIFIED).";
 
 export const BLOOD_ENDPOINTS: EndpointRegistry = {
   "GET /public/blood-banks": d(PUB, "Find verified blood banks", {
     query: bloodBanksQuery,
     description:
-      "Only banks MediQ has verified are listed. Stock figures older than the configured age carry stale: true (call to confirm). " +
+      "Only banks Care Bridge has verified are listed. Stock figures older than the configured age carry stale: true (call to confirm). " +
       NOTE,
   }),
   "GET /public/blood-banks/:id": d(PUB, "One verified blood bank with its stock"),

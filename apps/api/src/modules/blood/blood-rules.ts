@@ -2,7 +2,7 @@ import type { BloodGroup, Gender } from "../../generated/prisma/client.js";
 import { ageInYears } from "../queue/queue-rules.js";
 
 /**
- * Pure rules for the blood bank module, kept free of I/O so they are easy to test. MediQ only
+ * Pure rules for the blood bank module, kept free of I/O so they are easy to test. Care Bridge only
  * connects people: these rules protect donors from being asked too early and requesters from
  * being shown more than they should, but they are no substitute for a blood bank's own screening.
  */

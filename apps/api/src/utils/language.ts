@@ -1,4 +1,4 @@
-/** Languages MediQ speaks to patients in. English is the fallback for everything. */
+/** Languages Care Bridge speaks to patients in. English is the fallback for everything. */
 export const LANGUAGES = ["en", "hi"] as const;
 export type Language = (typeof LANGUAGES)[number];
 export const DEFAULT_LANGUAGE: Language = "en";

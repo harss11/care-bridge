@@ -2,7 +2,7 @@ import { Badge, Card, Select, cx } from "@/components/ui";
 import { BLOOD_DISCLAIMER, BLOOD_GROUPS, bloodLabel, formatWhen } from "@/lib/blood";
 import type { BloodGroup, BloodStockRow } from "@/lib/types";
 
-/** The reminder that MediQ connects people and does not handle blood. Shown on every blood screen. */
+/** The reminder that Care Bridge connects people and does not handle blood. Shown on every blood screen. */
 export function BloodDisclaimer({ className }: { className?: string }) {
   return (
     <aside

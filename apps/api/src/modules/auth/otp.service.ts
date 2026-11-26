@@ -35,11 +35,11 @@ function otpText(purpose: OtpPurpose, code: string): { template: string; body: s
   return purpose === "LOGIN"
     ? {
         template: "otp_login",
-        body: `${code} is your MediQ login code. It expires in ${minutes} minutes. Do not share it with anyone.`,
+        body: `${code} is your Care Bridge login code. It expires in ${minutes} minutes. Do not share it with anyone.`,
       }
     : {
         template: "otp_verify",
-        body: `${code} is your MediQ verification code. It expires in ${minutes} minutes. Do not share it with anyone.`,
+        body: `${code} is your Care Bridge verification code. It expires in ${minutes} minutes. Do not share it with anyone.`,
       };
 }
 
@@ -152,16 +152,16 @@ export async function sendOtp(phone: string, purpose: OtpPurpose, meta: RequestM
 /** The login code email. Plain and short so it is not mistaken for marketing. */
 export function loginEmail(code: string) {
   const minutes = OTP_TTL_SECONDS / 60;
-  const text = `${code} is your MediQ login code. It expires in ${minutes} minutes. Do not share it with anyone.
+  const text = `${code} is your Care Bridge login code. It expires in ${minutes} minutes. Do not share it with anyone.
 
-If you did not try to log in to MediQ, you can ignore this email.`;
+If you did not try to log in to Care Bridge, you can ignore this email.`;
   const html = `<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#0f172a;line-height:1.5">
-<p>Your MediQ login code is:</p>
+<p>Your Care Bridge login code is:</p>
 <p style="font-size:30px;font-weight:bold;letter-spacing:6px;margin:16px 0">${code}</p>
-<p>It expires in ${minutes} minutes. Do not share it with anyone, including MediQ staff.</p>
-<p style="color:#64748b;font-size:13px">If you did not try to log in to MediQ, you can ignore this email.</p>
+<p>It expires in ${minutes} minutes. Do not share it with anyone, including Care Bridge staff.</p>
+<p style="color:#64748b;font-size:13px">If you did not try to log in to Care Bridge, you can ignore this email.</p>
 </div>`;
-  return { subject: `${code} is your MediQ login code`, text, html };
+  return { subject: `${code} is your Care Bridge login code`, text, html };
 }
 
 /** Sends a login code to a patient's email address (already normalised to lower case). */
